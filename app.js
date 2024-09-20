@@ -19,18 +19,11 @@ function getIPv4FromIPv6(ip) {
   return ip;
 }
 
-// Middleware to block local network IPs
+// see which ip is comming into the website
 app.use((req, res, next) => {
   let clientIp = req.clientIp;
   
-  // Log the raw client IP address for debugging
   console.log('Raw Client IP:', clientIp);
-
-  // Extract IPv4 part if it's an IPv6-mapped IPv4 address
-  clientIp = getIPv4FromIPv6(clientIp);
-
-  // Log the processed client IP address for debugging
-  console.log('Processed Client IP:', clientIp);
 
   next();
 });
