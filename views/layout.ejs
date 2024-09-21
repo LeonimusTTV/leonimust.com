@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>leonimust.com</title>
+    <script src="/javascripts/core.js"></script>
+    <audio id="music" src="/music/msc.mp3" autoplay loop onplaying style="display: none;"></audio>
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/animate.css">
+    <meta name="description" content="LeonimusT's mini portfolio">
+    <meta name="keywords" content="portfolio, leonimust">
+    <meta name="author" content="LeonimusT">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/javascripts/index.js"></script>
+</head>
+<body>
+    <div id="main" class="center">
+        <div id="overlay" onclick="music.play(); addStuff();"><span class="header center" id="status_text"></span></div>
+        <%- body %>
+    </div>
+
+    <script>
+        const music = document.getElementById('music');
+
+        function updateStatus() {
+            if (music.paused &&  window.location.pathname === '/projects') {
+                window.location.pathname = '/';
+            }
+        }
+
+        window.onload = updateStatus;
+    </script>
+</body>
+</html>

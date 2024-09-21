@@ -8,9 +8,15 @@ const requestIp = require('request-ip');
 
 var indexRouter = require('./routes/index');
 
+const expressLayouts = require('express-ejs-layouts');
+
 var app = express();
 
 app.use(requestIp.mw());
+
+app.use(expressLayouts);
+
+app.set('layout', 'layout');
 
 function getIPv4FromIPv6(ip) {
   if (ip.startsWith('::ffff:')) {
