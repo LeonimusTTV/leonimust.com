@@ -99,3 +99,8 @@ a {
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.status {
+    text-align: center;
+    margin: 0;
+}

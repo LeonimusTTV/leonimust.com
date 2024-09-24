@@ -4,7 +4,6 @@
     <title>leonimust.com</title>
     <script src="/javascripts/core.js"></script>
     <audio id="music" src="/music/msc.mp3" autoplay loop onplaying style="display: none;"></audio>
-    <link rel="stylesheet" href="/stylesheets/all.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/animate.css">
     <meta name="description" content="LeonimusT's mini portfolio">
@@ -23,7 +22,7 @@
         const music = document.getElementById('music');
 
         function updateStatus() {
-            if (music.paused &&  window.location.pathname === '/projects') {
+            if (music.paused &&  window.location.pathname === '/projects' || window.location.pathname === '/games') {
                 window.location.pathname = '/';
             }
         }
