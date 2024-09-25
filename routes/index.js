@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const axios = require('axios');
 
-const subdomains = ["https://supercold.leonimust.com", "https://doom.lenonimust.com"];
+const subdomains = ["https://supercold.leonimust.com", "https://doom.leonimust.com"];
 
 router.get('/', function(req, res, next) {
   res.render('index', {isMainPage: true});
