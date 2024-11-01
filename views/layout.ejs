@@ -22,7 +22,7 @@
         const music = document.getElementById('music');
 
         function updateStatus() {
-            if (music.paused &&  window.location.pathname === '/projects' || window.location.pathname === '/games') {
+            if (music.paused && window.location.pathname === '/projects' || window.location.pathname === '/games') {
                 window.location.pathname = '/';
             }
         }

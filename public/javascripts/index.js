@@ -6,19 +6,44 @@ function loadPage(url, event) {
   fetch(url)
     .then(response => response.text())
     .then(html => {
+      // Parse the new content
       let parser = new DOMParser();
       let doc = parser.parseFromString(html, 'text/html');
-
       let newContent = doc.querySelector('#main').innerHTML;
 
+      // Replace the content in #main
       document.getElementById('main').innerHTML = newContent;
 
+      // Update the browser history
       window.history.pushState({ path: url }, '', url);
+
+      // Only initialize if on the main page
+      if (url === './') {
+        loadMain();
+      }
     })
     .catch(err => console.error('Failed to load page:', err));
 }
 
-// TODO make index be backable without reloading the whole page
+// Handle back/forward navigation with popstate
 window.addEventListener('popstate', function(event) {
-  this.window.location.pathname = "/"; // Redirect to home page
+  const path = event.state ? event.state.path : '/';
+
+  // Load the page dynamically based on the URL in history state
+  fetch(path)
+    .then(response => response.text())
+    .then(html => {
+      let parser = new DOMParser();
+      let doc = parser.parseFromString(html, 'text/html');
+      let newContent = doc.querySelector('#main').innerHTML;
+      
+      // Replace #main content
+      document.getElementById('main').innerHTML = newContent;
+
+      // Only run addStuff if returning to the main page
+      if (path === './') {
+        loadMain();
+      }
+    })
+    .catch(err => console.error('Failed to handle popstate:', err));
 });

@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 const axios = require('axios');
 
-const subdomains = ["https://supercold.leonimust.com", "https://doom.leonimust.com"];
+const subdomains = ["https://supercold.leonimust.com", "https://doom.leonimust.com", "https://earthwalker.leonimust.com"];
 
 router.get('/', function(req, res, next) {
-  res.render('index', {isMainPage: true});
+  res.render('index');
 });
 
 router.get('/projects', function(req, res, next) {
-  res.render('projects', {isMainPage: false});
+  res.render('projects');
 });
 
 const checkSubdomain = async (url) => {
@@ -28,7 +28,7 @@ const checkSubdomain = async (url) => {
 // TODO - edit games and projects to now make a weird loading thing - me :3
 router.get('/games', async function(req, res, next) {
   const results = await Promise.all(subdomains.map(checkSubdomain));
-  res.render('games', {isMainPage: false, results});
+  res.render('games', {results});
 });
 
 module.exports = router;

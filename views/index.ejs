@@ -34,6 +34,7 @@
 
     animateCSS('[name="top"]', animations[num][0], animationOver);
     animateCSS('[name="bottom"]', animations[num][1], animationOver);
+    console.log("ok")
     console.log("top: " + animations[num][0]);
     console.log("bottom: " + animations[num][1]);
   }
@@ -64,13 +65,8 @@
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
-  
-  var at = document.getElementById.bind(document);
-  window.addEventListener("DOMContentLoaded", () => {
-    at("status_text").innerHTML = "loading";
-  });
 
-  window.addEventListener("load", () => {
+  function loadMain() {
     setTimeout(() => {
       if (!window.music.paused) {
         addStuff();
@@ -81,6 +77,15 @@
       at("status_text").classList.add("begin");
 
     }, 100);
+  }
+  
+  var at = document.getElementById.bind(document);
+  window.addEventListener("DOMContentLoaded", () => {
+    at("status_text").innerHTML = "loading";
+  });
+
+  window.addEventListener("load", () => {
+    loadMain();
   });
 
   var temp = 0
@@ -88,7 +93,7 @@
   function animationOver() {
     temp++;
 
-    if (temp != 2)
+    if (temp % 2)
       return;
 
     setTimeout(function() {

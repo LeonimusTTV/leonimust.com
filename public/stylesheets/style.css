@@ -86,12 +86,16 @@ a {
 
 .img {
     height: 150px;
+    object-fit: contain;
+    padding-bottom: 5px;
 }
 
 .project {
     padding: 10px;
     display: flex;
     flex-direction: column;
+    height: 230px;
+    width: 260px;
 }
 
 .container-flex {
