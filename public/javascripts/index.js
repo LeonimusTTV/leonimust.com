@@ -3,6 +3,10 @@ function loadPage(url, event) {
     event.preventDefault(); // Prevent full page reload
   }
 
+  if (window.location.pathname === './') {
+    stopWriting(); 
+  }
+
   fetch(url)
     .then(response => response.text())
     .then(html => {
@@ -27,7 +31,11 @@ function loadPage(url, event) {
 
 // Handle back/forward navigation with popstate
 window.addEventListener('popstate', function(event) {
-  const path = event.state ? event.state.path : '/';
+  const path = event.state ? event.state.path : './';
+
+  if (window.location.pathname === './') {
+    stopWriting(); 
+  }
 
   // Load the page dynamically based on the URL in history state
   fetch(path)

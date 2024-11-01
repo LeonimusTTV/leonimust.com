@@ -110,13 +110,19 @@
       <a class="textiboi animated fadeIn"  href="/games" onclick="loadPage('/games', event)">games</a>
               <a class="textiboi animated fadeIn"  href="mailto:contact.leonimust.v2@gmail.com">contact</a>`;
       console.log("running typewrite");
-      indefiniteWrite();
+      startWriting();
 
     }, 550);
 
   }
 
-  function indefiniteWrite() {
+  let typewriterInstance = null; // Global instance variable for Typewriter
+
+  function startWriting() {
+    const typElement = document.getElementById('typElement');
+    
+    if (!typElement) return; // Exit if element is not available
+
     let strs = [
       "hello from leonimust :3",
       "credits to wolfie and it's old project methamphetamine.solutions",
@@ -139,19 +145,38 @@
       "catjpg still watching",
     ];
 
-    var num = getRandomInt(strs.length);
+    // If an instance already exists, stop and clear it before starting a new one
+    if (typewriterInstance) {
+      typewriterInstance.stop();
+      typewriterInstance = null;
+    }
 
+    // Create a new Typewriter instance
+    typewriterInstance = new Typewriter(typElement, { loop: true });
+
+    // Choose a random string and start typing animation
+    let num = getRandomInt(strs.length);
     console.log("writing " + strs[num]);
 
-    var typElement = document.getElementById('typElement');
-
-    var typewriter = new Typewriter(typElement, {
-      loop: true
-    });
-
-    typewriter.typeString(strs[num]).pauseFor(5000).deleteAll().pauseFor(100).callFunction(() => {
-      typewriter.stop();
-      indefiniteWrite();
-    }).start();
+    typewriterInstance
+      .typeString(strs[num])
+      .pauseFor(5000)
+      .deleteAll()
+      .pauseFor(100)
+      .callFunction(() => {
+        // Restart typing if still on the main page
+        if (typewriterInstance) {
+          startWriting();
+        }
+      })
+      .start();
   }
+
+  function stopWriting() {
+    if (typewriterInstance) {
+      typewriterInstance.stop();   // Stop the current typing animation
+      typewriterInstance = null;   // Clear the instance reference
+    }
+  }
+
 </script>
