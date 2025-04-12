@@ -1,7 +1,7 @@
 <h1 name="top" id="status_text" class="header animated"><a>projects</a></h1>
 <div class="container-flex">
-    <div class="project">
-        <img class="img" src="/images/spoticraft.webp" alt="placeholder">
+    <div class="project animated fadeIn">
+        <img class="img" src="/images/spoticraft.webp" alt="Spoticraft">
         <a class="textiboi"
             href="https://modrinth.com/mod/spoticraft-2">spoticraft</a>
         <p class="textiboi">spotify in minecraft</p>
@@ -9,5 +9,38 @@
 </div>
 <div class="container-flex">
     <a href="./" onclick="loadPage('./', event)" style="margin-top: 15px;"
-        class="textiboi">go back</a>
+        class="textiboi nav-item">go back</a>
 </div>
+
+<style>
+  .project {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    animation-delay: 0.2s;
+  }
+  
+  .nav-item {
+    padding: 8px 15px;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    animation-delay: 0.5s;
+  }
+  
+  .nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-item:hover::after {
+    width: 100%;
+  }
+</style>

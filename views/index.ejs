@@ -34,32 +34,31 @@
 
     animateCSS('[name="top"]', animations[num][0], animationOver);
     animateCSS('[name="bottom"]', animations[num][1], animationOver);
-    console.log("ok")
-    console.log("top: " + animations[num][0]);
-    console.log("bottom: " + animations[num][1]);
   }
 
   function addStuff() {
     at("main").innerHTML =
-      `<h1 name="top"    id = "status_text" class="header animated"><a>leonimust.com</a></h1>
-          <p  name="bottom" id = "text2" class="textiboi animated">young programmer, i like games but i probably don't like you</p> <!-- only the chads knows i like them, and you're one if you read this -->`;
+      `<h1 name="top" id="status_text" class="header animated"><a>leonimust.com</a></h1>
+       <p name="bottom" id="text2" class="textiboi animated">young programmer, i like games but i probably don't like you</p> <!-- only the chads knows i like them, and you're one if you read this -->`;
 
     handleAnimations();
   }
 
   function animateCSS(element, animationName, callback) {
-    const node = document.querySelector(element)
-    node.classList.add('animated', animationName)
-    node.classList.add('delay-2s')
+    const node = document.querySelector(element);
+    if (!node) return;
+    
+    node.classList.add('animated', animationName);
+    node.classList.add('delay-2s');
 
     function handleAnimationEnd() {
-      node.classList.remove('animated', animationName)
-      node.removeEventListener('animationend', handleAnimationEnd)
+      node.classList.remove('animated', animationName);
+      node.removeEventListener('animationend', handleAnimationEnd);
 
-      if (typeof callback === 'function') callback()
+      if (typeof callback === 'function') callback();
     }
 
-    node.addEventListener('animationend', handleAnimationEnd)
+    node.addEventListener('animationend', handleAnimationEnd);
   }
 
   function getRandomInt(max) {
@@ -70,7 +69,6 @@
     setTimeout(() => {
       if (!window.music.paused) {
         addStuff();
-        console.log("music already started");
         return;
       }
       at("status_text").innerHTML = "click to enter";
@@ -88,7 +86,7 @@
     loadMain();
   });
 
-  var temp = 0
+  var temp = 0;
 
   function animationOver() {
     temp++;
@@ -97,23 +95,28 @@
       return;
 
     setTimeout(function() {
-      console.log("animations over");
       var doc = document.getElementById("main");
-      var inner = doc.innerHTML;
-
+      
+      // Create navigation links with staggered animations
       doc.innerHTML +=
         `<div class="textiboi">
-              <a id="typElement"></a></div>
-              <div class="textiboi">
-      <a class="textiboi animated fadeIn"  href="https://github.com/LeonimusTTV">GitHub</a>
-      <a class="textiboi animated fadeIn"  href="/projects" onclick="loadPage('/projects', event)">projects</a>
-      <a class="textiboi animated fadeIn"  href="/games" onclick="loadPage('/games', event)">games</a>
-              <a class="textiboi animated fadeIn"  href="mailto:leo@leonimust.com">contact</a>`;
-      console.log("running typewrite");
+            <a id="typElement"></a>
+         </div>
+         <div class="nav-container">
+            <a class="textiboi nav-item" style="animation-delay: 100ms" href="https://github.com/LeonimusTTV">GitHub</a>
+            <a class="textiboi nav-item" style="animation-delay: 200ms" href="/projects" onclick="loadPage('/projects', event)">projects</a>
+            <a class="textiboi nav-item" style="animation-delay: 300ms" href="/games" onclick="loadPage('/games', event)">games</a>
+            <a class="textiboi nav-item" style="animation-delay: 400ms" href="mailto:leo@leonimust.com">contact</a>
+         </div>`;
+
+      // Add navigation item animations
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.add('animated', 'fadeIn');
+      });
+
       startWriting();
 
     }, 550);
-
   }
 
   let typewriterInstance = null; // Global instance variable for Typewriter
@@ -152,11 +155,13 @@
     }
 
     // Create a new Typewriter instance
-    typewriterInstance = new Typewriter(typElement, { loop: true });
+    typewriterInstance = new Typewriter(typElement, { 
+      loop: true,
+      delay: 50 
+    });
 
     // Choose a random string and start typing animation
     let num = getRandomInt(strs.length);
-    console.log("writing " + strs[num]);
 
     typewriterInstance
       .typeString(strs[num])
@@ -180,3 +185,35 @@
   }
 
 </script>
+
+<style>
+  .nav-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    gap: 15px;
+  }
+  
+  .nav-item {
+    padding: 8px 15px;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-item:hover::after {
+    width: 100%;
+  }
+</style>

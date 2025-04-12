@@ -1,24 +1,79 @@
-<h1 name="top" id = "status_text" class="header animated"><a>games</a></h1> <!-- I didn't make them it's just for funnnnnnn --> 
+<h1 name="top" id="status_text" class="header animated"><a>games</a></h1>
+<!-- I didn't make them it's just for funnnnnnn -->
 <div class="container-flex">
-    <div class="project">
-        <img class="img" src="/images/supercold.webp" alt="placeholder">
+    <div class="project animated fadeIn" style="animation-delay: 0.1s">
+        <img class="img" src="/images/supercold.webp" alt="Supercold">
         <a class="textiboi" href="https://supercold.leonimust.com">supercold</a>
         <p class="textiboi">superhot but in browser</p>
-        <p class="textiboi status"><% if(results[0]["statusText"] === "Down") {%>supercold is down<%} else {%>supercold is up<%} %></p>
+        <p
+            class="textiboi status <%= results[0]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
+            <% if(results[0]["statusText"] === "Down") {%>supercold is down<%}
+            else {%>supercold is up<%} %>
+        </p>
     </div>
-    <div class="project">
-        <img class="img" src="/images/doom.webp" alt="placeholder">
+    <div class="project animated fadeIn" style="animation-delay: 0.2s">
+        <img class="img" src="/images/doom.webp" alt="Doom">
         <a class="textiboi" href="https://doom.leonimust.com">doom</a>
         <p class="textiboi">doom duh</p>
-        <p class="textiboi status"><% if(results[1]["statusText"] === "Down") {%>doom is down<%} else {%>doom is up<%} %></p>
+        <p
+            class="textiboi status <%= results[1]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
+            <% if(results[1]["statusText"] === "Down") {%>doom is down<%} else
+            {%>doom is up<%} %>
+        </p>
     </div>
-    <div class="project">
-        <img class="img" src="/images/earthwalker.webp" alt="placeholder">
-        <a class="textiboi" href="https://earthwalker.leonimust.com">earthwalker</a>
+    <div class="project animated fadeIn" style="animation-delay: 0.3s">
+        <img class="img" src="/images/earthwalker.webp" alt="Earthwalker">
+        <a class="textiboi"
+            href="https://earthwalker.leonimust.com">earthwalker</a>
         <p class="textiboi">geoguessr without budget</p>
-        <p class="textiboi status"><% if(results[2]["statusText"] === "Down") {%>earthwalker is down<%} else {%>earthwalker is up<%} %></p>
+        <p
+            class="textiboi status <%= results[2]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
+            <% if(results[2]["statusText"] === "Down") {%>earthwalker is down<%}
+            else {%>earthwalker is up<%} %>
+        </p>
     </div>
 </div>
 <div class="container-flex">
-    <a href="./" onclick="loadPage('./', event)" style="margin-top: 15px;" class="textiboi">go back</a>
+    <a href="./" onclick="loadPage('./', event)" style="margin-top: 15px;"
+        class="textiboi nav-item">go back</a>
 </div>
+
+<style>
+  .project {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+  
+  .nav-item {
+    padding: 8px 15px;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    animation-delay: 0.5s;
+  }
+  
+  .nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-item:hover::after {
+    width: 100%;
+  }
+  
+  .status-up {
+    color: #4CAF50;
+  }
+  
+  .status-down {
+    color: #F44336;
+  }
+</style>

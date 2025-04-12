@@ -3,8 +3,11 @@ function loadPage(url, event) {
     event.preventDefault(); // Prevent full page reload
   }
 
+  // Show loading overlay
+  document.getElementById('loadingOverlay').classList.add('loading-active');
+
   if (window.location.pathname === './') {
-    stopWriting(); 
+    stopWriting();
   }
 
   fetch(url)
@@ -15,26 +18,80 @@ function loadPage(url, event) {
       let doc = parser.parseFromString(html, 'text/html');
       let newContent = doc.querySelector('#main').innerHTML;
 
-      // Replace the content in #main
-      document.getElementById('main').innerHTML = newContent;
+      // Fade out current content
+      const main = document.getElementById('main');
+      main.style.opacity = 0;
 
-      // Update the browser history
-      window.history.pushState({ path: url }, '', url);
+      setTimeout(() => {
+        // Replace the content in #main
+        main.innerHTML = newContent;
+        main.classList.add('page-transition');
 
-      // Only initialize if on the main page
-      if (url === './') {
-        loadMain();
-      }
+        // Update the browser history
+        window.history.pushState({ path: url }, '', url);
+
+        // Hide loading overlay
+        document.getElementById('loadingOverlay').classList.remove('loading-active');
+
+        // Fade in new content
+        main.style.opacity = 1;
+
+        // Only initialize if on the main page
+        if (url === './') {
+          loadMainWithoutAnimation();
+        }
+      }, 200);
     })
-    .catch(err => console.error('Failed to load page:', err));
+    .catch(err => {
+      console.error('Failed to load page:', err);
+      // Hide loading overlay even on error
+      document.getElementById('loadingOverlay').classList.remove('loading-active');
+    });
+}
+
+// Function to load main page content without initial animations if user has already entered
+function loadMainWithoutAnimation() {
+  if (window.userHasEntered) {
+    // Skip initial animations but keep the appearing animations
+    const main = document.getElementById('main');
+    main.innerHTML = `
+      <h1 name="top" id="status_text" class="header"><a>leonimust.com</a></h1>
+      <p name="bottom" id="text2" class="textiboi">young programmer, i like games but i probably don't like you</p>
+    `;
+
+    // Add the typewriter and navigation elements with animations, similar to animationOver()
+    setTimeout(function () {
+      var doc = document.getElementById("main");
+
+      // Create navigation links with staggered animations
+      doc.innerHTML +=
+        `<div class="textiboi">
+            <a id="typElement"></a>
+         </div>
+         <div class="nav-container">
+            <a class="textiboi nav-item animated fadeIn" style="animation-delay: 100ms" href="https://github.com/LeonimusTTV">GitHub</a>
+            <a class="textiboi nav-item animated fadeIn" style="animation-delay: 200ms" href="/projects" onclick="loadPage('/projects', event)">projects</a>
+            <a class="textiboi nav-item animated fadeIn" style="animation-delay: 300ms" href="/games" onclick="loadPage('/games', event)">games</a>
+            <a class="textiboi nav-item animated fadeIn" style="animation-delay: 400ms" href="mailto:leo@leonimust.com">contact</a>
+         </div>`;
+
+      startWriting();
+    }, 100);
+  } else {
+    // First time visiting, use normal animation flow
+    loadMain();
+  }
 }
 
 // Handle back/forward navigation with popstate
-window.addEventListener('popstate', function(event) {
+window.addEventListener('popstate', function (event) {
   const path = event.state ? event.state.path : './';
 
+  // Show loading overlay
+  document.getElementById('loadingOverlay').classList.add('loading-active');
+
   if (window.location.pathname === './') {
-    stopWriting(); 
+    stopWriting();
   }
 
   // Load the page dynamically based on the URL in history state
@@ -44,14 +101,31 @@ window.addEventListener('popstate', function(event) {
       let parser = new DOMParser();
       let doc = parser.parseFromString(html, 'text/html');
       let newContent = doc.querySelector('#main').innerHTML;
-      
-      // Replace #main content
-      document.getElementById('main').innerHTML = newContent;
 
-      // Only run addStuff if returning to the main page
-      if (path === './') {
-        loadMain();
-      }
+      // Fade out current content
+      const main = document.getElementById('main');
+      main.style.opacity = 0;
+
+      setTimeout(() => {
+        // Replace #main content
+        main.innerHTML = newContent;
+        main.classList.add('page-transition');
+
+        // Hide loading overlay
+        document.getElementById('loadingOverlay').classList.remove('loading-active');
+
+        // Fade in new content
+        main.style.opacity = 1;
+
+        // Only run loadMainWithoutAnimation if returning to the main page
+        if (path === './') {
+          loadMainWithoutAnimation();
+        }
+      }, 200);
     })
-    .catch(err => console.error('Failed to handle popstate:', err));
+    .catch(err => {
+      console.error('Failed to handle popstate:', err);
+      // Hide loading overlay even on error
+      document.getElementById('loadingOverlay').classList.remove('loading-active');
+    });
 });

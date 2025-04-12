@@ -1,25 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>leonimust.com</title>
-    <script src="/javascripts/core.js"></script>
-    <audio id="music" src="/music/msc.mp3" autoplay loop onplaying style="display: none;"></audio>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/animate.css">
-    <meta name="description" content="LeonimusT's mini portfolio">
-    <meta name="keywords" content="portfolio, leonimust">
-    <meta name="author" content="LeonimusT">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/javascripts/index.js"></script>
-</head>
-<body>
-    <div id="main" class="center">
-        <div id="overlay" onclick="music.play(); addStuff();"><span class="header center" id="status_text"></span></div>
-        <%- body %>
-    </div>
+    <head>
+        <title>leonimust.com</title>
+        <script src="/javascripts/core.js"></script>
+        <audio id="music" src="/music/msc.mp3" autoplay loop onplaying
+            style="display: none;"></audio>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="stylesheet" href="/stylesheets/animate.css">
+        <meta name="description" content="LeonimusT's mini portfolio">
+        <meta name="keywords" content="portfolio, leonimust">
+        <meta name="author" content="LeonimusT">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/javascripts/index.js"></script>
+        <script>
+            // Global variable to track if user has entered the site
+            window.userHasEntered = false;
+        </script>
+    </head>
+    <body>
+        <div id="main" class="center">
+            <div id="overlay"
+                onclick="music.play(); addStuff(); window.userHasEntered = true;"><span
+                    class="header center" id="status_text"></span></div>
+            <%- body %>
+        </div>
 
-    <script>
+        <!-- Music controls -->
+        <div class="music-controls-container">
+            <!-- Music indicator that shows volume control when clicked -->
+            <div class="music-indicator" id="musicIndicator">
+                <div class="music-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+
+            <!-- Volume control panel -->
+            <div class="volume-control" id="volumeControl">
+                <input type="range" id="volumeSlider" min="0" max="100"
+                    value="70" class="volume-slider">
+                <div class="volume-display">
+                    <span id="volumeValue">70%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <script>
         const music = document.getElementById('music');
+        const musicIndicator = document.getElementById('musicIndicator');
+        const volumeControl = document.getElementById('volumeControl');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeValue = document.getElementById('volumeValue');
+        
+        // Set initial volume
+        music.volume = volumeSlider.value / 100;
+        
+        // Update volume when slider changes
+        volumeSlider.addEventListener('input', function() {
+            const volume = this.value / 100;
+            music.volume = volume;
+            volumeValue.textContent = this.value + '%';
+            
+            // Save volume preference in localStorage
+            localStorage.setItem('userVolume', volume);
+        });
+        
+        // Toggle volume control visibility
+        musicIndicator.addEventListener('click', function(e) {
+            e.stopPropagation();
+            volumeControl.classList.toggle('show-volume');
+            
+            // Hide volume control after 5 seconds of inactivity
+            resetVolumeTimer();
+        });
+        
+        // Hide volume control when clicking elsewhere
+        document.addEventListener('click', function(e) {
+            if (!volumeControl.contains(e.target) && !musicIndicator.contains(e.target)) {
+                volumeControl.classList.remove('show-volume');
+            }
+        });
+        
+        // Timer to auto-hide volume control
+        let volumeTimer;
+        function resetVolumeTimer() {
+            clearTimeout(volumeTimer);
+            volumeTimer = setTimeout(() => {
+                volumeControl.classList.remove('show-volume');
+            }, 5000);
+        }
+        
+        // Update volume slider on mouse movement when visible
+        volumeControl.addEventListener('mousemove', function() {
+            if (volumeControl.classList.contains('show-volume')) {
+                resetVolumeTimer();
+            }
+        });
 
         function updateStatus() {
             if (music.paused && window.location.pathname === '/projects' || window.location.pathname === '/games') {
@@ -27,7 +109,33 @@
             }
         }
 
-        window.onload = updateStatus;
-    </script>
-</body>
+        // Toggle music indicator visibility based on music playing status
+        function toggleMusicIndicator() {
+            if (music.paused) {
+                musicIndicator.style.display = 'none';
+                volumeControl.classList.remove('show-volume');
+            } else {
+                musicIndicator.style.display = 'flex';
+            }
+        }
+
+        // Add event listeners to track music state
+        music.addEventListener('play', toggleMusicIndicator);
+        music.addEventListener('pause', toggleMusicIndicator);
+
+        // Initialize music indicator state and restore user's volume preference
+        window.onload = function() {
+            updateStatus();
+            toggleMusicIndicator();
+            
+            // Load saved volume if exists
+            const savedVolume = localStorage.getItem('userVolume');
+            if (savedVolume !== null) {
+                music.volume = savedVolume;
+                volumeSlider.value = savedVolume * 100;
+                volumeValue.textContent = Math.round(savedVolume * 100) + '%';
+            }
+        };
+        </script>
+    </body>
 </html>
