@@ -42,6 +42,13 @@
        <p name="bottom" id="text2" class="textiboi animated">young programmer, i like games but i probably don't like you</p> <!-- only the chads knows i like them, and you're one if you read this -->`;
 
     handleAnimations();
+    
+    // Restart code rain if it was activated
+    if (konamiActivated) {
+      setTimeout(() => {
+        startCodeRain();
+      }, 1000);
+    }
   }
 
   function animateCSS(element, animationName, callback) {
@@ -115,6 +122,13 @@
       });
 
       startWriting();
+
+      // Restart code rain if it was activated
+      if (konamiActivated) {
+        setTimeout(() => {
+          startCodeRain();
+        }, 100);
+      }
 
     }, 550);
   }
@@ -345,14 +359,37 @@
   function createCodeRain() {
     if (!konamiActivated) return; // Only create if Konami code was entered
     
+    // Remove existing code rain container if it exists
+    const existingRain = document.querySelector('.code-rain');
+    if (existingRain) {
+      existingRain.parentNode.removeChild(existingRain);
+    }
+    
     const codeRain = document.createElement('div');
     codeRain.className = 'code-rain';
+    codeRain.id = 'codeRainContainer';
+    
+    // Apply inline styles to ensure visibility
+    codeRain.style.cssText = `
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      pointer-events: none !important;
+      z-index: 10 !important;
+      overflow: hidden !important;
+    `;
+    
     document.body.appendChild(codeRain);
 
     const chars = '01アカサタナハマヤラワンabcdefghijklmnopqrstuvwxyz';
 
     function createDrop() {
       if (!konamiActivated) return; // Double check
+      
+      const currentRain = document.getElementById('codeRainContainer');
+      if (!currentRain) return; // Exit if container was removed
       
       const drop = document.createElement('div');
       drop.textContent = chars[Math.floor(Math.random() * chars.length)];
@@ -372,12 +409,13 @@
       drop.style.top = '-30px';
       drop.style.opacity = opacity;
       drop.style.pointerEvents = 'none';
-      drop.style.zIndex = '1';
+      drop.style.zIndex = '11';
+      drop.style.userSelect = 'none';
       
       // Animate using transform for better performance
       drop.style.animation = `codeRainFall ${duration}s linear forwards`;
       
-      codeRain.appendChild(drop);
+      currentRain.appendChild(drop);
       
       // Remove element after animation
       setTimeout(() => {
@@ -579,14 +617,14 @@
 
   /* Code rain effect */
   .code-rain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    pointer-events: none !important;
+    z-index: 10 !important;
+    overflow: hidden !important;
   }
 
   @keyframes codeRainFall {
