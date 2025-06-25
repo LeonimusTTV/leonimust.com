@@ -27,6 +27,16 @@ function loadPage(url, event) {
         main.innerHTML = newContent;
         main.classList.add('page-transition');
 
+        // Update body class based on current page
+        document.body.classList.remove('home-page', 'projects-page', 'games-page');
+        if (url === './' || url === '') {
+          document.body.classList.add('home-page');
+        } else if (url.includes('projects')) {
+          document.body.classList.add('projects-page');
+        } else if (url.includes('games')) {
+          document.body.classList.add('games-page');
+        }
+
         // Update the browser history
         window.history.pushState({ path: url }, '', url);
 
@@ -82,6 +92,29 @@ function loadMainWithoutAnimation() {
     loadMain();
   }
 }
+
+// Handle browser back button
+window.addEventListener('popstate', function (event) {
+  if (event.state && event.state.path) {
+    loadPage(event.state.path);
+  } else {
+    loadPage('./');
+  }
+});
+
+// Set initial body class based on current path
+document.addEventListener('DOMContentLoaded', () => {
+  const currentPath = window.location.pathname;
+  document.body.classList.remove('home-page', 'projects-page', 'games-page');
+
+  if (currentPath === '/' || currentPath === './' || currentPath === '') {
+    document.body.classList.add('home-page');
+  } else if (currentPath.includes('projects')) {
+    document.body.classList.add('projects-page');
+  } else if (currentPath.includes('games')) {
+    document.body.classList.add('games-page');
+  }
+});
 
 // Handle back/forward navigation with popstate
 window.addEventListener('popstate', function (event) {
