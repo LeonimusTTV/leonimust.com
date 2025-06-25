@@ -1,9 +1,13 @@
 html,
 body {
     background: rgb(30, 30, 30);
-    background: linear-gradient(120deg, rgba(30, 30, 30, 1) 0%, rgba(20, 20, 20, 1) 100%);
+    background: var(--gradient-primary);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     transition: background 0.5s ease;
     scroll-behavior: smooth;
+    cursor: none;
+    /* Hide default cursor for custom cursor */
 }
 
 .seller {
@@ -25,6 +29,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: breathe 4s ease-in-out infinite;
 }
 
 .textiboi {
@@ -37,6 +42,10 @@ body {
 .textiboi:hover {
     color: white;
     transform: translateY(-2px);
+    text-shadow:
+        0 0 5px var(--primary-glow),
+        0 0 10px var(--primary-glow),
+        0 0 15px var(--primary-glow);
 }
 
 .header {
@@ -104,7 +113,8 @@ a {
 }
 
 .container:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.05);
+    filter: brightness(1.2);
 }
 
 .container:hover .icon {
@@ -396,4 +406,134 @@ a {
 /* Navigation container */
 .nav-container {
     text-align: center;
+}
+
+/* CSS Custom Properties for consistent theming */
+:root {
+    --primary-glow: rgba(255, 255, 255, 0.1);
+    --secondary-glow: rgba(255, 255, 255, 0.05);
+    --accent-color: rgba(255, 255, 255, 0.8);
+    --performance-factor: 1;
+    --gradient-primary: linear-gradient(120deg, rgba(30, 30, 30, 1) 0%, rgba(20, 20, 20, 1) 100%);
+}
+
+/* Enhanced background with animated gradient */
+html,
+body {
+    background: rgb(30, 30, 30);
+    background: var(--gradient-primary);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    transition: background 0.5s ease;
+    scroll-behavior: smooth;
+    cursor: none;
+    /* Hide default cursor for custom cursor */
+}
+
+/* Breathing animation for main container */
+.center {
+    animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.02);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Scanline effect overlay with performance consideration */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, calc(0.01 * var(--performance-factor))) 2px,
+            rgba(255, 255, 255, calc(0.01 * var(--performance-factor))) 4px);
+    pointer-events: none;
+    z-index: 1000;
+    opacity: calc(0.5 * var(--performance-factor));
+}
+
+/* Enhanced container hover effects */
+.container:hover {
+    transform: translateY(-5px) scale(1.05);
+    filter: brightness(1.2);
+}
+
+/* Smooth reveal animations */
+.reveal {
+    animation: revealUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes revealUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Enhanced text glow effects */
+.textiboi:hover,
+.header:hover {
+    text-shadow:
+        0 0 5px var(--primary-glow),
+        0 0 10px var(--primary-glow),
+        0 0 15px var(--primary-glow);
+}
+
+/* Refined focus states for accessibility */
+a:focus,
+button:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Performance-optimized animations */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .center {
+        animation: none;
+    }
+
+    body::before {
+        display: none;
+    }
 }

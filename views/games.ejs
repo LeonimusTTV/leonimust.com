@@ -1,7 +1,7 @@
 <h1 name="top" id="status_text" class="header animated"><a>games</a></h1>
 <!-- I didn't make them it's just for funnnnnnn -->
 <div class="container-flex">
-  <div class="project animated fadeIn" style="animation-delay: 0.1s">
+  <div class="project animated fadeIn" style="animation-delay: 0.1s" data-tilt>
     <img class="img" src="/images/supercold.webp" alt="Supercold">
     <a class="textiboi" href="https://supercold.leonimust.com"
       target="_blank">supercold</a>
@@ -12,7 +12,7 @@
       else {%>supercold is up<%} %>
     </p>
   </div>
-  <div class="project animated fadeIn" style="animation-delay: 0.2s">
+  <div class="project animated fadeIn" style="animation-delay: 0.2s" data-tilt>
     <img class="img" src="/images/doom.webp" alt="Doom">
     <a class="textiboi" href="https://doom.leonimust.com"
       target="_blank">doom</a>
@@ -23,7 +23,7 @@
       {%>doom is up<%} %>
     </p>
   </div>
-  <div class="project animated fadeIn" style="animation-delay: 0.3s">
+  <div class="project animated fadeIn" style="animation-delay: 0.3s" data-tilt>
     <img class="img" src="/images/earthwalker.webp" alt="Earthwalker">
     <a class="textiboi"
       href="https://earthwalker.leonimust.com" target="_blank">earthwalker</a>
@@ -73,9 +73,161 @@
   
   .status-up {
     color: #4CAF50;
+    text-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
   }
   
   .status-down {
     color: #F44336;
+    text-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+    animation: pulse-red 2s infinite;
+  }
+
+  @keyframes pulse-red {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  /* Enhanced game cards */
+  .project {
+    opacity: 0;
+    animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.02);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+  }
+
+  .project::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .project:hover::before {
+    left: 100%;
+  }
+
+  .project:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(255, 255, 255, 0.1);
+  }
+
+  .project .img {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: grayscale(20%);
+  }
+
+  .project:hover .img {
+    transform: scale(1.1);
+    filter: grayscale(0%) brightness(1.1);
+  }
+
+  .project .textiboi {
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .project:hover .textiboi {
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  @keyframes slideInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  // 3D Tilt Effect for games
+  document.addEventListener('DOMContentLoaded', () => {
+    const games = document.querySelectorAll('[data-tilt]');
+    
+    games.forEach(game => {
+      game.addEventListener('mousemove', (e) => {
+        const rect = game.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        game.style.transform = `
+          perspective(1000px) 
+          rotateX(${rotateX}deg) 
+          rotateY(${rotateY}deg) 
+          translateZ(10px)
+          scale(1.02)
+        `;
+      });
+      
+      game.addEventListener('mouseleave', () => {
+        game.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
+      });
+    });
+    
+    // Add gaming-themed floating elements
+    createGamingElements();
+  });
+  
+  function createGamingElements() {
+    const gameSymbols = ['◄', '►', '▲', '▼', '●', '■', '♦', '◊'];
+    
+    for (let i = 0; i < 6; i++) {
+      const element = document.createElement('div');
+      element.textContent = gameSymbols[Math.floor(Math.random() * gameSymbols.length)];
+      element.style.cssText = `
+        position: fixed;
+        color: rgba(255, 255, 255, 0.1);
+        font-family: monospace;
+        font-size: ${Math.random() * 15 + 12}px;
+        pointer-events: none;
+        z-index: 1;
+        left: ${Math.random() * window.innerWidth}px;
+        top: ${Math.random() * window.innerHeight}px;
+        animation: gameFloat ${Math.random() * 8 + 12}s linear infinite;
+      `;
+      
+      document.body.appendChild(element);
+    }
+  }
+</script>
+
+<style>
+  @keyframes gameFloat {
+    0% {
+      transform: translateY(0px) rotate(0deg);
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(-100vh) rotate(180deg);
+      opacity: 0;
+    }
   }
 </style>
