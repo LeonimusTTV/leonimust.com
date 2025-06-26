@@ -163,7 +163,6 @@ a {
 .container-flex {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
     gap: 20px;
@@ -198,14 +197,7 @@ a {
 
 /* Page-specific layout fixes */
 body:not(.home-page) .center {
-    position: static;
-    transform: none;
     animation: none;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
