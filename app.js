@@ -18,13 +18,6 @@ app.use(expressLayouts);
 
 app.set('layout', 'layout');
 
-function getIPv4FromIPv6(ip) {
-  if (ip.startsWith('::ffff:')) {
-    return ip.replace('::ffff:', '');
-  }
-  return ip;
-}
-
 // see which ip is comming into the website
 app.use((req, res, next) => {
   let clientIp = req.clientIp;
