@@ -1,0 +1,23 @@
+{
+  "nodeModulesDir": "auto",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false
+  },
+  "tasks": {
+    "start": "deno run --allow-all --node-modules-dir=auto ./bin/www"
+  },
+  "imports": {
+    "express": "npm:express@5.1.0",
+    "http-errors": "npm:http-errors@2.0.0",
+    "cookie-parser": "npm:cookie-parser@1.4.7",
+    "morgan": "npm:morgan@1.10.1",
+    "ejs": "npm:ejs@3.1.10",
+    "express-ejs-layouts": "npm:express-ejs-layouts@2.5.1",
+    "axios": "npm:axios@1.12.2",
+    "request-ip": "npm:request-ip@3.3.0",
+    "debug": "npm:debug@4.4.3",
+    "nodemailer": "npm:nodemailer@6.10.0",
+    "dotenv": "npm:dotenv@16.4.7"
+  }
+}

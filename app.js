@@ -1,16 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import 'dotenv/config';
+import createError from 'http-errors';
+import express from 'express';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import requestIp from 'request-ip';
+import indexRouter from './routes/index.js';
+import expressLayouts from 'express-ejs-layouts';
 
-const requestIp = require('request-ip');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-var indexRouter = require('./routes/index');
-
-const expressLayouts = require('express-ejs-layouts');
-
-var app = express();
+const app = express();
 
 app.use(requestIp.mw());
 
@@ -55,4 +57,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;
