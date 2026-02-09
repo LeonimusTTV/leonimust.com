@@ -33,6 +33,19 @@ router.get('/games', async function (req, res, next) {
   res.render('games', { results });
 });
 
+// Legal pages for Subscriptions Management app
+router.get('/legal/subscriptions-management/copyright', function (req, res, next) {
+  res.render('legal/subscriptions-management/copyright');
+});
+
+router.get('/legal/subscriptions-management/licensing', function (req, res, next) {
+  res.render('legal/subscriptions-management/licensing');
+});
+
+router.get('/legal/subscriptions-management/privacy', function (req, res, next) {
+  res.render('legal/subscriptions-management/privacy');
+});
+
 router.post('/contact/send', async function (req, res) {
   const { name, email, message } = req.body;
 

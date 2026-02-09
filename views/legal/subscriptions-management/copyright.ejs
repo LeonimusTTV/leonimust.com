@@ -1,0 +1,207 @@
+<h1 class="header animated fadeIn"><a>Copyright Notice</a></h1>
+
+<div class="container-flex legal-content">
+  <div class="legal-section animated fadeIn" style="animation-delay: 0.1s;">
+    <h2 class="textiboi">Copyright Information</h2>
+    <p class="textiboi">
+      Copyright © 2026 LeonimusT. All rights reserved.
+    </p>
+    <p class="textiboi">
+      The Subscriptions Management application, including but not limited to its
+      source code,
+      design, user interface, graphics, documentation, and all associated
+      materials, is the
+      exclusive property of LeonimusT and is protected by international
+      copyright laws and treaties.
+    </p>
+  </div>
+
+  <div class="legal-section animated fadeIn" style="animation-delay: 0.2s;">
+    <h2 class="textiboi">Ownership</h2>
+    <p class="textiboi">
+      All intellectual property rights in and to the Subscriptions Management
+      application remain
+      the sole property of LeonimusT. This includes, without limitation:
+    </p>
+    <ul class="textiboi">
+      <li>Source code and compiled binaries</li>
+      <li>Application design and user interface elements</li>
+      <li>Graphics, logos, icons, and visual assets</li>
+      <li>Documentation and user guides</li>
+      <li>Application name and branding</li>
+    </ul>
+  </div>
+
+  <div class="legal-section animated fadeIn" style="animation-delay: 0.3s;">
+    <h2 class="textiboi">Restrictions</h2>
+    <p class="textiboi">
+      Unauthorized copying, modification, distribution, public display, or
+      creation of derivative
+      works based on the Subscriptions Management application or any of its
+      components is strictly
+      prohibited without express written permission from LeonimusT.
+    </p>
+    <p class="textiboi">
+      This copyright notice must be retained in all copies or substantial
+      portions of the application.
+    </p>
+  </div>
+
+  <div class="legal-section animated fadeIn" style="animation-delay: 0.4s;">
+    <h2 class="textiboi">Third-Party Content</h2>
+    <p class="textiboi">
+      Brand logos and company names displayed within the application are
+      trademarks of their
+      respective owners. The application fetches these logos from publicly
+      available sources
+      for display purposes only. LeonimusT claims no ownership over third-party
+      trademarks or logos.
+    </p>
+  </div>
+
+  <div class="legal-section animated fadeIn" style="animation-delay: 0.5s;">
+    <h2 class="textiboi">Contact</h2>
+    <p class="textiboi">
+      For copyright inquiries, licensing questions, or permission requests,
+      please contact:
+      <br><br>
+      LeonimusT<br>
+      <a href="mailto:leo@leonimust.com"
+        style="color: #777; text-decoration: underline;">leo@leonimust.com</a>
+    </p>
+  </div>
+</div>
+
+<div class="container-flex">
+  <a href="/" onclick="loadPage('/', event)" class="textiboi nav-item">go
+    back</a>
+</div>
+
+<style>
+  /* Override fixed positioning to enable scrolling */
+  #main {
+    position: static !important;
+    transform: none !important;
+    animation: none !important;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  body {
+    background: linear-gradient(135deg, rgb(30, 30, 30), rgb(20, 20, 20));
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  html {
+    overflow-y: auto;
+  }
+
+  .header {
+    text-align: center;
+    margin: 60px 0 40px 0;
+  }
+
+  .header a {
+    font-size: 2.5em;
+    color: white;
+    font-family: monospace;
+    text-decoration: none;
+  }
+
+  .legal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: left;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .legal-section {
+    width: 100%;
+    margin-bottom: 30px;
+    opacity: 0;
+  }
+
+  .legal-section h2 {
+    color: white;
+    font-family: monospace;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+  }
+
+  .legal-section p {
+    color: #777;
+    font-family: monospace;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+  }
+
+  .legal-section p:hover {
+    color: #aaa;
+  }
+
+  .legal-section ul {
+    color: #777;
+    font-family: monospace;
+    line-height: 1.8;
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  .legal-section li {
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+  }
+
+  .legal-section li:hover {
+    color: #aaa;
+  }
+
+  .container-flex {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+  }
+
+  .nav-item {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+  }
+
+  .nav-item:hover::after {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .legal-content {
+      padding: 20px 15px;
+    }
+
+    .header a {
+      font-size: 2em;
+    }
+
+    .legal-section h2 {
+      font-size: 1.3em;
+    }
+  }
+</style>
