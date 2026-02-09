@@ -1,3 +1,69 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<div class="error-container">
+  <h1 class="error-title"><%= message %></h1>
+  <% if (isDevelopment) { %>
+  <h2 class="error-status"><%= error.status %></h2>
+  <pre class="error-stack"><%= error.stack %></pre>
+  <% } else { %>
+  <p class="error-message">We're sorry, but something went wrong. Please try
+    again later.</p>
+  <a href="/" onclick="loadPage('/', event)" class="error-link">Go back home</a>
+  <% } %>
+</div>
+
+<style>
+  .error-container {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .error-title {
+    color: white;
+    font-family: monospace;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .error-message {
+    color: #777;
+    font-family: monospace;
+    line-height: 1.6;
+    margin: 20px 0;
+  }
+
+  .error-link {
+    color: #777;
+    font-family: monospace;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .error-link:hover {
+    color: white;
+    border-color: white;
+  }
+
+  /* Development mode styles */
+  .error-status {
+    color: #777;
+    font-family: monospace;
+    margin: 10px 0;
+  }
+
+  .error-stack {
+    color: #777;
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 4px;
+    text-align: left;
+    overflow-x: auto;
+    margin-top: 20px;
+  }
+</style>
