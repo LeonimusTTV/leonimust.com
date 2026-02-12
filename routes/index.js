@@ -27,7 +27,6 @@ const checkSubdomain = async (url) => {
   }
 };
 
-// TODO - edit games and projects to now make a weird loading thing - me :3
 router.get('/games', async function (req, res, next) {
   const results = await Promise.all(subdomains.map(checkSubdomain));
   res.render('games', { results });
@@ -44,6 +43,19 @@ router.get('/legal/subscriptions-management/licensing', function (req, res, next
 
 router.get('/legal/subscriptions-management/privacy', function (req, res, next) {
   res.render('legal/subscriptions-management/privacy');
+});
+
+// Legal pages for Package Tracking app
+router.get('/legal/package-tracking/copyright', function (req, res, next) {
+  res.render('legal/package-tracking/copyright');
+});
+
+router.get('/legal/package-tracking/licensing', function (req, res, next) {
+  res.render('legal/package-tracking/licensing');
+});
+
+router.get('/legal/package-tracking/privacy', function (req, res, next) {
+  res.render('legal/package-tracking/privacy');
 });
 
 router.post('/contact/send', async function (req, res) {
