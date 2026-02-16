@@ -58,6 +58,19 @@ router.get('/legal/package-tracking/privacy', function (req, res, next) {
   res.render('legal/package-tracking/privacy');
 });
 
+// Legal pages for Delay Your Purchases app
+router.get('/legal/delay-your-purchases/copyright', function (req, res, next) {
+  res.render('legal/delay-your-purchases/copyright');
+});
+
+router.get('/legal/delay-your-purchases/licensing', function (req, res, next) {
+  res.render('legal/delay-your-purchases/licensing');
+});
+
+router.get('/legal/delay-your-purchases/privacy', function (req, res, next) {
+  res.render('legal/delay-your-purchases/privacy');
+});
+
 router.post('/contact/send', async function (req, res) {
   const { name, email, message } = req.body;
 
