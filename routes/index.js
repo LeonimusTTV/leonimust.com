@@ -32,7 +32,6 @@ router.get('/games', async function (req, res, next) {
   res.render('games', { results });
 });
 
-// Legal pages for Subscriptions Management app
 router.get('/legal/subscriptions-management/copyright', function (req, res, next) {
   res.render('legal/subscriptions-management/copyright');
 });
@@ -45,7 +44,6 @@ router.get('/legal/subscriptions-management/privacy', function (req, res, next) 
   res.render('legal/subscriptions-management/privacy');
 });
 
-// Legal pages for Package Tracking app
 router.get('/legal/package-tracking/copyright', function (req, res, next) {
   res.render('legal/package-tracking/copyright');
 });
@@ -58,7 +56,6 @@ router.get('/legal/package-tracking/privacy', function (req, res, next) {
   res.render('legal/package-tracking/privacy');
 });
 
-// Legal pages for Delay Your Purchases app
 router.get('/legal/delay-your-purchases/copyright', function (req, res, next) {
   res.render('legal/delay-your-purchases/copyright');
 });
@@ -69,6 +66,18 @@ router.get('/legal/delay-your-purchases/licensing', function (req, res, next) {
 
 router.get('/legal/delay-your-purchases/privacy', function (req, res, next) {
   res.render('legal/delay-your-purchases/privacy');
+});
+
+router.get('/legal/focus/copyright', function (req, res, next) {
+  res.render('legal/focus/copyright');
+});
+
+router.get('/legal/focus/licensing', function (req, res, next) {
+  res.render('legal/focus/licensing');
+});
+
+router.get('/legal/focus/privacy', function (req, res, next) {
+  res.render('legal/focus/privacy');
 });
 
 router.post('/contact/send', async function (req, res) {
