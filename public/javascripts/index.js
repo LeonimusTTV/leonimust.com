@@ -137,6 +137,8 @@ function loadPage(url, event) {
           document.body.classList.add('projects-page');
         } else if (normalizedUrl.includes('games')) {
           document.body.classList.add('games-page');
+        } else if (normalizedUrl.includes('mobile')) {
+          document.body.classList.add('projects-page');
         } else if (normalizedUrl.includes('legal')) {
           document.body.classList.add('legal-page');
         }
@@ -219,6 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('projects-page');
   } else if (currentPath.includes('games')) {
     document.body.classList.add('games-page');
+  } else if (currentPath.includes('mobile')) {
+    document.body.classList.add('projects-page');
   } else if (currentPath.includes('legal')) {
     document.body.classList.add('legal-page');
   }
@@ -301,6 +305,8 @@ window.addEventListener('popstate', function (event) {
           document.body.classList.add('projects-page');
         } else if (path.includes('games')) {
           document.body.classList.add('games-page');
+        } else if (path.includes('mobile')) {
+          document.body.classList.add('projects-page');
         } else if (path.includes('legal')) {
           document.body.classList.add('legal-page');
         }

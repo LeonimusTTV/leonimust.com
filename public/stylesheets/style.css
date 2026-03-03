@@ -74,6 +74,9 @@ body {
 body.games-page #main,
 body.projects-page #main {
     position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -82,7 +85,16 @@ body.projects-page #main {
 }
 
 body.games-page,
-body.projects-page,
+body.projects-page {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 body.legal-page {
     overflow-y: auto;
 }
