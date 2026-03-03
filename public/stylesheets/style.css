@@ -375,7 +375,8 @@ button:focus {
 .status {
     font-size: 0.82em;
     opacity: 0.75;
-    margin-top: 4px;
+    margin-top: auto;
+    padding-top: 4px;
 }
 
 .status-up {
@@ -690,4 +691,74 @@ body:not(.home-page) #overlay {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* ---- Staggered animation delays (replaces inline styles) ---- */
+.nav-container .nav-item:nth-child(1) {
+    animation-delay: 100ms;
+}
+
+.nav-container .nav-item:nth-child(2) {
+    animation-delay: 200ms;
+}
+
+.nav-container .nav-item:nth-child(3) {
+    animation-delay: 300ms;
+}
+
+.nav-container .nav-item:nth-child(4) {
+    animation-delay: 400ms;
+}
+
+.nav-container .nav-item:nth-child(5) {
+    animation-delay: 500ms;
+}
+
+.container-flex .project:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.container-flex .project:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.container-flex .project:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.container-flex .project:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* ---- Back-link spacing (replaces inline margin-top: 15px) ---- */
+.nav-back {
+    margin-top: 15px;
+}
+
+/* ---- Store badges (moved from mobile.ejs inline <style>) ---- */
+.store-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 12px;
+    width: 100%;
+}
+
+.store-badge {
+    height: 40px;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.store-badge:hover {
+    opacity: 1;
+    transform: scale(1.04);
+}
+
+.dapp-badge-wrap {
+    display: inline-block;
+    cursor: pointer;
 }

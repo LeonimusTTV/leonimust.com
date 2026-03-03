@@ -1,9 +1,9 @@
 <h1 name="top" id="status_text" class="header animated"><a>games</a></h1>
 <div class="container-flex">
-  <div class="project animated fadeIn" style="animation-delay: 0.1s">
+  <div class="project animated fadeIn">
     <img class="img" src="/images/supercold.webp" alt="Supercold">
     <a class="textiboi" href="https://supercold.leonimust.com"
-      target="_blank">supercold</a>
+      target="_blank" rel="noopener noreferrer">supercold</a>
     <p class="textiboi">superhot but cold and in browser</p>
     <p
       class="textiboi status <%= results[0]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
@@ -11,10 +11,10 @@
       else {%>supercold is up<%} %>
     </p>
   </div>
-  <div class="project animated fadeIn" style="animation-delay: 0.2s">
+  <div class="project animated fadeIn">
     <img class="img" src="/images/doom.webp" alt="Doom">
     <a class="textiboi" href="https://doom.leonimust.com"
-      target="_blank">doom</a>
+      target="_blank" rel="noopener noreferrer">doom</a>
     <p class="textiboi">doom but in browser duh</p>
     <p
       class="textiboi status <%= results[1]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
@@ -22,10 +22,11 @@
       {%>doom is up<%} %>
     </p>
   </div>
-  <div class="project animated fadeIn" style="animation-delay: 0.3s">
+  <div class="project animated fadeIn">
     <img class="img" src="/images/earthwalker.webp" alt="Earthwalker">
     <a class="textiboi"
-      href="https://earthwalker.leonimust.com" target="_blank">earthwalker</a>
+      href="https://earthwalker.leonimust.com" target="_blank"
+      rel="noopener noreferrer">earthwalker</a>
     <p class="textiboi">geoguessr without budget but free</p>
     <p
       class="textiboi status <%= results[2]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
@@ -35,6 +36,6 @@
   </div>
 </div>
 <div class="container-flex">
-  <a href="./" onclick="loadPage('./', event)" style="margin-top: 15px;"
-    class="textiboi nav-item">go back</a>
+  <a href="./" onclick="loadPage('./', event)"
+    class="textiboi nav-item nav-back">go back</a>
 </div>
