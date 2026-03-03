@@ -1,241 +1,260 @@
-html,
+/* =========================================================
+   CSS Custom Properties
+   ========================================================= */
+:root {
+    --bg: #1a1a1a;
+    --text-dim: #444;
+    --text-bright: #ffffff;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-hover-bg: rgba(255, 255, 255, 0.05);
+    --glow: rgba(255, 255, 255, 0.15);
+    /* legacy compat */
+    --primary-glow: rgba(255, 255, 255, 0.1);
+    --accent-color: rgba(255, 255, 255, 0.8);
+}
+
+/* =========================================================
+   Reset / Base
+   ========================================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--bg);
+    height: 100%;
+}
+
 body {
-    background: rgb(30, 30, 30);
-    background: var(--gradient-primary);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
-    transition: background 0.5s ease;
+    background: var(--bg);
+    color: var(--text-dim);
+    font-family: 'Courier New', Courier, monospace;
     scroll-behavior: smooth;
     cursor: none;
-    /* Hide default cursor for custom cursor */
+    height: 99%;
+    overflow: hidden;
 }
 
-.seller {
-    font-family: monospace;
-    color: #444;
-    cursor: text;
-    transition: color 0.3s ease;
+/* =========================================================
+   Kanji background characters
+   ========================================================= */
+.kanji-bg-char {
+    position: fixed;
+    color: rgba(255, 255, 255, 0.05);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    animation: kanjiDrift linear infinite;
 }
 
-.holder {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+@keyframes kanjiDrift {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.04;
+    }
+
+    50% {
+        opacity: 0.07;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(20deg);
+        opacity: 0;
+    }
 }
 
-.center {
+/* =========================================================
+   Home page — centred layout
+   ========================================================= */
+#main {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: breathe 4s ease-in-out infinite;
-}
-
-.textiboi {
+    width: 100%;
     text-align: center;
-    color: #444;
-    font-family: monospace;
-    transition: color 0.3s ease, transform 0.2s ease;
+    z-index: 2;
 }
 
-.textiboi:hover {
-    color: white;
-    transform: translateY(-2px);
-    text-shadow:
-        0 0 5px var(--primary-glow),
-        0 0 10px var(--primary-glow),
-        0 0 15px var(--primary-glow);
+/* =========================================================
+   Sub-page layout (games, projects)
+   ========================================================= */
+body.games-page #main,
+body.projects-page #main {
+    position: relative;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px 40px;
 }
 
+body.games-page,
+body.projects-page,
+body.legal-page {
+    overflow-y: auto;
+}
+
+/* =========================================================
+   Legal page layout
+   ========================================================= */
+body.legal-page #main {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px 60px;
+}
+
+.legal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 760px;
+    gap: 32px;
+}
+
+.legal-section {
+    width: 100%;
+    text-align: left;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background: var(--card-bg);
+    padding: 28px 32px;
+}
+
+.legal-section h2.textiboi {
+    text-align: left;
+    color: var(--text-bright);
+    font-size: 1.1em;
+    margin-bottom: 12px;
+}
+
+.legal-section p.textiboi,
+.legal-section ul.textiboi,
+.legal-section li {
+    text-align: left;
+    line-height: 1.75;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.legal-section ul.textiboi {
+    padding-left: 20px;
+}
+
+.legal-section strong {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+    body.legal-page #main {
+        padding: 40px 16px 40px;
+    }
+
+    .legal-section {
+        padding: 20px 18px;
+    }
+}
+
+/* =========================================================
+   Typography
+   ========================================================= */
 .header {
     text-align: center;
-    color: #444;
-    font-family: monospace;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    color: var(--text-dim);
+    font-family: 'Courier New', Courier, monospace;
+    transition: color 0.3s ease;
 }
 
 .header a {
     text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.hoverr:hover a {
-    color: white;
-}
-
-.header:hover {
-    text-align: center;
-    color: white;
-    font-family: monospace;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-}
-
-.container:hover .seller {
-    color: white;
-}
-
-.container:hover a {
-    color: white;
-}
-
-.a {
-    text-align: center;
-    color: white;
-    font-family: monospace;
-}
-
-.header:hover a {
-    text-align: center;
-    color: white;
-    font-family: monospace;
-}
-
-.icon {
-    color: #444;
-    transition: color 0.3s ease, font-size 0.3s ease;
-}
-
-.icon i {
-    font-size: 80px;
-}
-
-.container {
-    text-align: center;
-    margin: 5px 20px;
-    float: left;
-    transition: transform 0.3s ease;
-}
-
-a {
-    color: #444;
+    color: inherit;
     transition: color 0.3s ease;
 }
 
-.container:hover {
-    transform: translateY(-5px) scale(1.05);
-    filter: brightness(1.2);
+.header:hover,
+.header:hover a {
+    color: var(--text-bright);
 }
 
-.container:hover .icon {
-    color: var(--icon-color);
-    font-size: 20px;
-}
-
-.container:hover .seller {
-    color: white;
-}
-
-.container:hover a {
-    color: white;
-}
-
-.img {
-    height: 150px;
-    object-fit: contain;
-    padding-bottom: 5px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.project {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    height: 230px;
-    width: 260px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    margin: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: rgba(35, 35, 35, 0.5);
-}
-
-.project:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.project:hover .img {
-    transform: scale(1.05);
-}
-
-.container-flex {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    flex-shrink: 0;
-}
-
-/* Ensure back button container is properly styled */
-.container-flex:last-child {
-    margin-top: 20px;
-    padding: 20px;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-/* Responsive design for project/game cards */
-@media (max-width: 768px) {
-    .container-flex {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 15px;
-    }
-
-    .project {
-        width: 90%;
-        max-width: 350px;
-    }
-}
-
-/* Page-specific layout fixes */
-body:not(.home-page) .center {
-    animation: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Header styling for project/game pages */
-body:not(.home-page) .header {
-    position: relative;
-    margin-bottom: 40px;
+.textiboi {
     text-align: center;
-    flex-shrink: 0;
+    color: var(--text-dim);
+    font-family: 'Courier New', Courier, monospace;
+    transition: color 0.25s ease;
 }
 
-/* Fix for overlay on non-home pages */
-body:not(.home-page) #overlay {
-    display: none;
+.textiboi:hover {
+    color: var(--text-bright);
 }
 
-/* Enhanced back button styling */
+a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+a:hover {
+    color: var(--text-bright);
+}
+
+a:focus,
+button:focus {
+    outline: 1px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   Overlay ("click to enter")
+   ========================================================= */
+#overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* =========================================================
+   Navigation container + items
+   ========================================================= */
+.nav-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 22px;
+    gap: 6px;
+}
+
 .nav-item {
-    padding: 12px 20px;
+    padding: 9px 18px;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     border: 1px solid transparent;
-    border-radius: 6px;
-    text-decoration: none;
+    border-radius: 4px;
     display: inline-block;
-    margin: 10px;
 }
 
 .nav-item:hover {
-    color: white;
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: var(--text-bright) !important;
+    border-color: var(--border-subtle);
+    background: var(--card-hover-bg);
 }
 
 .nav-item::after {
@@ -244,8 +263,8 @@ body:not(.home-page) #overlay {
     bottom: 0;
     left: 0;
     width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
     transition: width 0.3s ease;
 }
 
@@ -253,45 +272,150 @@ body:not(.home-page) #overlay {
     width: 100%;
 }
 
-.status {
-    text-align: center;
-    margin: 0;
-    font-size: 0.85em;
-    opacity: 0.7;
+/* =========================================================
+   Project / game cards
+   ========================================================= */
+.container-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 20px;
 }
 
-/* Page transitions */
-.page-transition {
+.container-flex:last-child {
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 260px;
+    padding: 22px 18px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.project::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
     opacity: 0;
-    animation: fadeIn 0.5s forwards;
+    transition: opacity 0.35s ease;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+.project:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
 
-    to {
+.project:hover::before {
+    opacity: 1;
+}
+
+.img {
+    height: 140px;
+    width: 100%;
+    object-fit: contain;
+    margin-bottom: 12px;
+    filter: grayscale(15%);
+    transition: filter 0.35s ease, transform 0.35s ease;
+}
+
+.project:hover .img {
+    filter: grayscale(0%) brightness(1.08);
+    transform: scale(1.04);
+}
+
+.project .textiboi {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================================
+   Game status badges
+   ========================================================= */
+.status {
+    font-size: 0.82em;
+    opacity: 0.75;
+    margin-top: 4px;
+}
+
+.status-up {
+    color: #4CAF50;
+    text-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
+}
+
+.status-down {
+    color: #f55;
+    animation: pulse-red 2s ease-in-out infinite;
+}
+
+@keyframes pulse-red {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
+    50% {
+        opacity: 0.6;
+    }
 }
 
-/* Music indicator */
-.music-indicator {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
+/* Responsive */
+@media (max-width: 768px) {
+
+    html,
+    body {
+        cursor: auto;
+    }
+
+    body.games-page #main,
+    body.projects-page #main {
+        padding: 40px 16px 30px;
+    }
+
+    .container-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 8px 12px;
+    }
+
+    .project {
+        width: calc(100% - 16px);
+        max-width: 340px;
+    }
+
+    .img {
+        height: 120px;
+    }
+
+    .nav-container {
+        gap: 4px;
+    }
 }
 
-/* Music controls */
+/* =========================================================
+   Music controls
+   ========================================================= */
 .music-controls-container {
     position: fixed;
     bottom: 15px;
@@ -303,107 +427,38 @@ body:not(.home-page) #overlay {
 }
 
 .music-indicator {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.2s ease, transform 0.2s ease;
     z-index: 102;
 }
 
 .music-indicator:hover {
+    background: rgba(255, 255, 255, 0.12);
     transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-/* Volume control */
-.volume-control {
-    position: absolute;
-    bottom: 30px;
-    right: 0;
-    background: rgba(30, 30, 30, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 10px 15px;
-    width: 150px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    z-index: 101;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.volume-control.show-volume {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.volume-slider {
-    width: 100%;
-    height: 4px;
-    appearance: none;
-    background: #444;
-    outline: none;
-    border-radius: 2px;
-    margin-bottom: 8px;
-    cursor: pointer;
-}
-
-.volume-slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.volume-slider::-moz-range-thumb {
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.volume-slider:hover::-webkit-slider-thumb {
-    transform: scale(1.2);
-}
-
-.volume-slider:hover::-moz-range-thumb {
-    transform: scale(1.2);
-}
-
-.volume-display {
-    display: flex;
-    justify-content: center;
-    color: #777;
-    font-size: 12px;
-    font-family: monospace;
 }
 
 .music-bars {
     display: flex;
     align-items: flex-end;
-    height: 15px;
-    width: 15px;
+    height: 14px;
+    width: 14px;
+    gap: 2px;
 }
 
 .bar {
-    background: #444;
-    width: 2px;
-    margin: 0 1px;
-    height: 5px;
-    animation: sound 0ms -800ms linear infinite alternate;
+    background: #555;
+    flex: 1;
+    height: 4px;
+    border-radius: 1px;
+    animation: sound linear infinite alternate;
 }
 
 .bar:nth-child(1) {
@@ -421,62 +476,128 @@ body:not(.home-page) #overlay {
 @keyframes sound {
     0% {
         height: 3px;
-        background: #444;
+        background: #555;
     }
 
     100% {
-        height: 12px;
-        background: #fff;
+        height: 13px;
+        background: #ccc;
     }
 }
 
-/* Click to enter styling */
-.begin {
+.volume-control {
+    position: absolute;
+    bottom: 32px;
+    right: 0;
+    background: rgba(22, 22, 22, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 12px 14px;
+    width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 101;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.volume-control.show-volume {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.volume-slider {
+    width: 100%;
+    height: 3px;
+    appearance: none;
+    background: #333;
+    outline: none;
+    border-radius: 2px;
+    margin-bottom: 8px;
     cursor: pointer;
-    animation: pulse 1.5s infinite;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: #aaa;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.volume-slider:hover::-webkit-slider-thumb {
+    background: #fff;
+    transform: scale(1.2);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background: #aaa;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.volume-display {
+    display: flex;
+    justify-content: center;
+    color: #666;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+}
+
+/* =========================================================
+   Overlay / enter screen
+   ========================================================= */
+.begin {
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes pulse {
-    0% {
+
+    0%,
+    100% {
+        opacity: 0.6;
         transform: scale(1);
-        opacity: 0.7;
     }
 
     50% {
-        transform: scale(1.05);
         opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 0.7;
+        transform: scale(1.04);
     }
 }
 
-/* Loading indicator */
+body:not(.home-page) #overlay {
+    display: none;
+}
+
+/* =========================================================
+   Loading overlay
+   ========================================================= */
 .loading-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(25, 25, 25, 0.3);
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
 }
 
 .loading-spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
+    width: 28px;
+    height: 28px;
+    border: 2px solid rgba(255, 255, 255, 0.07);
     border-radius: 50%;
-    border-top-color: #444;
-    animation: spin 1s ease-in-out infinite;
+    border-top-color: #555;
+    animation: spin 0.9s linear infinite;
 }
 
 @keyframes spin {
@@ -490,122 +611,76 @@ body:not(.home-page) #overlay {
     pointer-events: all;
 }
 
-/* Navigation container */
-.nav-container {
-    text-align: center;
+/* =========================================================
+   Page transition
+   ========================================================= */
+.page-transition {
+    animation: fadeIn 0.4s ease forwards;
 }
 
-/* CSS Custom Properties for consistent theming */
-:root {
-    --primary-glow: rgba(255, 255, 255, 0.1);
-    --secondary-glow: rgba(255, 255, 255, 0.05);
-    --accent-color: rgba(255, 255, 255, 0.8);
-    --performance-factor: 1;
-    --gradient-primary: linear-gradient(120deg, rgba(30, 30, 30, 1) 0%, rgba(20, 20, 20, 1) 100%);
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-/* Enhanced background with animated gradient */
-html,
-body {
-    background: rgb(30, 30, 30);
-    background: var(--gradient-primary);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
-    transition: background 0.5s ease;
-    scroll-behavior: smooth;
-    cursor: none;
-    /* Hide default cursor for custom cursor */
+/* =========================================================
+   Typewriter cursor
+   ========================================================= */
+.Typewriter__cursor {
+    opacity: 1;
+    animation: blink 1s step-end infinite;
 }
 
-/* Breathing animation for main container */
-.center {
-    animation: breathe 4s ease-in-out infinite;
-}
-
-@keyframes breathe {
+@keyframes blink {
 
     0%,
     100% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    50% {
-        transform: translate(-50%, -50%) scale(1.02);
-    }
-}
-
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* Scanline effect overlay with performance consideration */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(0deg,
-            transparent,
-            transparent 2px,
-            rgba(255, 255, 255, calc(0.01 * var(--performance-factor))) 2px,
-            rgba(255, 255, 255, calc(0.01 * var(--performance-factor))) 4px);
-    pointer-events: none;
-    z-index: 1000;
-    opacity: calc(0.5 * var(--performance-factor));
-}
-
-/* Enhanced container hover effects */
-.container:hover {
-    transform: translateY(-5px) scale(1.05);
-    filter: brightness(1.2);
-}
-
-/* Smooth reveal animations */
-.reveal {
-    animation: revealUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes revealUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-    }
-
-    100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        opacity: 0;
     }
 }
 
-/* Enhanced text glow effects */
-.textiboi:hover,
-.header:hover {
-    text-shadow:
-        0 0 5px var(--primary-glow),
-        0 0 10px var(--primary-glow),
-        0 0 15px var(--primary-glow);
+/* =========================================================
+   Custom cursor (ring only)
+   ========================================================= */
+.dynamic-cursor {
+    position: fixed;
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease,
+        border-color 0.2s ease, background 0.2s ease,
+        opacity 0.2s ease;
 }
 
-/* Refined focus states for accessibility */
-a:focus,
-button:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
+.dynamic-cursor.hover {
+    width: 38px;
+    height: 38px;
+    border-color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.06);
 }
 
-/* Performance-optimized animations */
+.dynamic-cursor.click {
+    width: 16px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
 @media (prefers-reduced-motion: reduce) {
 
     *,
@@ -614,13 +689,5 @@ button:focus {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-    }
-
-    .center {
-        animation: none;
-    }
-
-    body::before {
-        display: none;
     }
 }

@@ -13,16 +13,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="/javascripts/index.js"></script>
         <script src="/javascripts/effects.js"></script>
-        <script>
-            // Global variable to track if user has entered the site
-            window.userHasEntered = false;
-        </script>
+
     </head>
-    <body>
-        <div id="main" class="center">
+    <body class="<%= locals.bodyClass || 'home-page' %>">
+        <div id="main">
             <div id="overlay"
                 onclick="music.play(); addStuff(); window.userHasEntered = true;"><span
-                    class="header center" id="status_text"></span></div>
+                    class="header" id="status_text"></span></div>
             <%- body %>
         </div>
 
@@ -105,7 +102,8 @@
         });
 
         function updateStatus() {
-            if (music.paused && window.location.pathname === '/projects' || window.location.pathname === '/games') {
+            const p = window.location.pathname;
+            if (music.paused && (p === '/projects' || p === '/games')) {
                 window.location.pathname = '/';
             }
         }

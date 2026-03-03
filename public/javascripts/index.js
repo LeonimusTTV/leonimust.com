@@ -22,7 +22,7 @@ function loadPage(url, event) {
 
     setTimeout(() => {
       // Update body class
-      document.body.classList.remove('home-page', 'projects-page', 'games-page');
+      document.body.classList.remove('home-page', 'projects-page', 'games-page', 'legal-page');
       document.body.classList.add('home-page');
 
       // Update the browser history
@@ -66,13 +66,15 @@ function loadPage(url, event) {
         main.classList.add('page-transition');
 
         // Update body class based on current page
-        document.body.classList.remove('home-page', 'projects-page', 'games-page');
+        document.body.classList.remove('home-page', 'projects-page', 'games-page', 'legal-page');
         if (isHomePage) {
           document.body.classList.add('home-page');
         } else if (normalizedUrl.includes('projects')) {
           document.body.classList.add('projects-page');
         } else if (normalizedUrl.includes('games')) {
           document.body.classList.add('games-page');
+        } else if (normalizedUrl.includes('legal')) {
+          document.body.classList.add('legal-page');
         }
 
         // Update the browser history
@@ -146,7 +148,7 @@ function loadMainWithoutAnimation() {
 // Set initial body class based on current path and push initial history state
 document.addEventListener('DOMContentLoaded', () => {
   const currentPath = window.location.pathname;
-  document.body.classList.remove('home-page', 'projects-page', 'games-page');
+  document.body.classList.remove('home-page', 'projects-page', 'games-page', 'legal-page');
 
   if (currentPath === '/' || currentPath === './' || currentPath === '') {
     document.body.classList.add('home-page');
@@ -154,6 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('projects-page');
   } else if (currentPath.includes('games')) {
     document.body.classList.add('games-page');
+  } else if (currentPath.includes('legal')) {
+    document.body.classList.add('legal-page');
   }
 
   // Push initial state to history so back button works correctly
@@ -186,7 +190,7 @@ window.addEventListener('popstate', function (event) {
 
     setTimeout(() => {
       // Update body class
-      document.body.classList.remove('home-page', 'projects-page', 'games-page');
+      document.body.classList.remove('home-page', 'projects-page', 'games-page', 'legal-page');
       document.body.classList.add('home-page');
 
       // Directly render home page content
@@ -227,13 +231,15 @@ window.addEventListener('popstate', function (event) {
         main.classList.add('page-transition');
 
         // Update body class based on current page
-        document.body.classList.remove('home-page', 'projects-page', 'games-page');
+        document.body.classList.remove('home-page', 'projects-page', 'games-page', 'legal-page');
         if (isHomePage) {
           document.body.classList.add('home-page');
         } else if (path.includes('projects')) {
           document.body.classList.add('projects-page');
         } else if (path.includes('games')) {
           document.body.classList.add('games-page');
+        } else if (path.includes('legal')) {
+          document.body.classList.add('legal-page');
         }
 
         // Hide loading overlay

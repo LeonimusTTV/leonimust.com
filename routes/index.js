@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/projects', function (req, res, next) {
-  res.render('projects');
+  res.render('projects', { bodyClass: 'projects-page' });
 });
 
 const checkSubdomain = async (url) => {
@@ -29,56 +29,23 @@ const checkSubdomain = async (url) => {
 
 router.get('/games', async function (req, res, next) {
   const results = await Promise.all(subdomains.map(checkSubdomain));
-  res.render('games', { results });
+  res.render('games', { results, bodyClass: 'games-page' });
 });
 
-router.get('/legal/subscriptions-management/copyright', function (req, res, next) {
-  res.render('legal/subscriptions-management/copyright');
-});
+const legalRender = (view) => (req, res) => res.render(view, { bodyClass: 'legal-page' });
 
-router.get('/legal/subscriptions-management/licensing', function (req, res, next) {
-  res.render('legal/subscriptions-management/licensing');
-});
-
-router.get('/legal/subscriptions-management/privacy', function (req, res, next) {
-  res.render('legal/subscriptions-management/privacy');
-});
-
-router.get('/legal/package-tracking/copyright', function (req, res, next) {
-  res.render('legal/package-tracking/copyright');
-});
-
-router.get('/legal/package-tracking/licensing', function (req, res, next) {
-  res.render('legal/package-tracking/licensing');
-});
-
-router.get('/legal/package-tracking/privacy', function (req, res, next) {
-  res.render('legal/package-tracking/privacy');
-});
-
-router.get('/legal/delay-your-purchases/copyright', function (req, res, next) {
-  res.render('legal/delay-your-purchases/copyright');
-});
-
-router.get('/legal/delay-your-purchases/licensing', function (req, res, next) {
-  res.render('legal/delay-your-purchases/licensing');
-});
-
-router.get('/legal/delay-your-purchases/privacy', function (req, res, next) {
-  res.render('legal/delay-your-purchases/privacy');
-});
-
-router.get('/legal/focus/copyright', function (req, res, next) {
-  res.render('legal/focus/copyright');
-});
-
-router.get('/legal/focus/licensing', function (req, res, next) {
-  res.render('legal/focus/licensing');
-});
-
-router.get('/legal/focus/privacy', function (req, res, next) {
-  res.render('legal/focus/privacy');
-});
+router.get('/legal/subscriptions-management/copyright', legalRender('legal/subscriptions-management/copyright'));
+router.get('/legal/subscriptions-management/licensing', legalRender('legal/subscriptions-management/licensing'));
+router.get('/legal/subscriptions-management/privacy', legalRender('legal/subscriptions-management/privacy'));
+router.get('/legal/package-tracking/copyright', legalRender('legal/package-tracking/copyright'));
+router.get('/legal/package-tracking/licensing', legalRender('legal/package-tracking/licensing'));
+router.get('/legal/package-tracking/privacy', legalRender('legal/package-tracking/privacy'));
+router.get('/legal/delay-your-purchases/copyright', legalRender('legal/delay-your-purchases/copyright'));
+router.get('/legal/delay-your-purchases/licensing', legalRender('legal/delay-your-purchases/licensing'));
+router.get('/legal/delay-your-purchases/privacy', legalRender('legal/delay-your-purchases/privacy'));
+router.get('/legal/focus/copyright', legalRender('legal/focus/copyright'));
+router.get('/legal/focus/licensing', legalRender('legal/focus/licensing'));
+router.get('/legal/focus/privacy', legalRender('legal/focus/privacy'));
 
 router.post('/contact/send', async function (req, res) {
   const { name, email, message } = req.body;
