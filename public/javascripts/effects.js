@@ -54,27 +54,34 @@ class DynamicCursor {
 }
 
 // =====================================================
-// Kanji background characters
+// Dev background characters
 // =====================================================
-function createKanjiBackground() {
-  const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-  const count = 14;
+function createDevBackground() {
+  const chars = ['<', '/>', '</', '{}', '[]', '=>', '//', '/*', '*/', '===', '&&', '||', '!', '??', '::', '()', '++', '--', '...', '#'];
+  const MAX_COUNT = 20;
 
-  for (let i = 0; i < count; i++) {
-    const el = document.createElement('div');
-    el.className = 'kanji-bg-char';
+  function randomise(el) {
     el.textContent = chars[Math.floor(Math.random() * chars.length)];
+    el.style.left = (Math.random() * 98) + 'vw';
+    el.style.top  = (Math.random() * 95) + 'vh';
+  }
 
-    const duration = 45 + Math.random() * 40; // 45–85s
-    const delay = -(Math.random() * duration);  // start mid-cycle so they're already drifting
-    const size = 14 + Math.floor(Math.random() * 10); // 14–24px
-    const left = Math.random() * 100; // 0–100vw
+  for (let i = 0; i < MAX_COUNT; i++) {
+    const el = document.createElement('div');
+    el.className = 'dev-bg-char';
 
-    el.style.left = left + 'vw';
-    el.style.bottom = '-40px';
-    el.style.fontSize = size + 'px';
+    const size     = 12 + Math.floor(Math.random() * 8); // 12–20px
+    const duration = 5  + Math.random() * 7;             // 5–12s per cycle
+    const delay    = -(Math.random() * duration);         // stagger: start mid-cycle
+
+    el.style.fontSize         = size + 'px';
     el.style.animationDuration = duration + 's';
-    el.style.animationDelay = delay + 's';
+    el.style.animationDelay   = delay + 's';
+
+    randomise(el);
+
+    // On each completed cycle: move to a new spot and pick a new symbol
+    el.addEventListener('animationiteration', () => randomise(el));
 
     document.body.appendChild(el);
   }
@@ -87,5 +94,5 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.innerWidth > 768) {
     new DynamicCursor();
   }
-  createKanjiBackground();
+  createDevBackground();
 });
