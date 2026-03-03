@@ -1,3 +1,67 @@
+// =====================================================
+// Typewriter logic (must live here so it's available on
+// every page, including legal pages that never load index.ejs)
+// =====================================================
+let typewriterInstance = null;
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function startWriting() {
+  const typElement = document.getElementById('typElement');
+  if (!typElement) return;
+
+  if (typewriterInstance) {
+    typewriterInstance.stop();
+    typewriterInstance = null;
+  }
+
+  const strs = [
+    "hello from leonimust :3",
+    "credits to wolfie and it's old project methamphetamine.solutions",
+    "i could pwned you but would i ?",
+    "stop paying for inferior devs",
+    "code is art, so let's make it beautiful",
+    "leonimust delivers, every time",
+    "no gimmicks, just clean code",
+    "why settle for average?",
+    "your projects deserve better",
+    "crafting digital experiences with a spark",
+    "minimalism is the ultimate sophistication",
+    "where creativity meets code",
+    "your vision, my execution",
+    "unlock your project's full potential",
+    "stop waiting, start creating",
+    "no bugs, just features",
+    "built with precision, delivered with passion",
+    "the dev you didn't know you needed",
+    "catjpg still watching",
+  ];
+
+  typewriterInstance = new Typewriter(typElement, { loop: true, delay: 50 });
+
+  const num = getRandomInt(strs.length);
+  typewriterInstance
+    .typeString(strs[num])
+    .pauseFor(5000)
+    .deleteAll()
+    .pauseFor(100)
+    .callFunction(() => {
+      if (typewriterInstance) {
+        startWriting();
+      }
+    })
+    .start();
+}
+
+function stopWriting() {
+  if (typewriterInstance) {
+    typewriterInstance.stop();
+    typewriterInstance = null;
+  }
+}
+
 function loadPage(url, event) {
   if (event) {
     event.preventDefault(); // Prevent full page reload
@@ -130,10 +194,8 @@ function renderHomePageContent() {
           <a class="textiboi nav-item" href="mailto:leo@leonimust.com">contact</a>
        </div>`;
 
-    // Start typewriter if available
-    if (typeof startWriting === 'function') {
-      startWriting();
-    }
+    // Start typewriter
+    startWriting();
   }, 100);
 }
 
