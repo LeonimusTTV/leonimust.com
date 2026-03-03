@@ -22,6 +22,9 @@ class DynamicCursor {
     document.addEventListener('mousemove', (e) => {
       this._x = e.clientX;
       this._y = e.clientY;
+      if (!e.target.closest(hoverSel)) {
+        this.cursor.classList.remove('hover');
+      }
     });
 
     const animate = () => {
