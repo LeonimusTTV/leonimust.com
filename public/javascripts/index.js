@@ -191,6 +191,7 @@ function renderHomePageContent() {
           <a class="textiboi nav-item" href="https://github.com/LeonimusTTV">GitHub</a>
           <a class="textiboi nav-item" href="/projects" onclick="loadPage('/projects', event)">projects</a>
           <a class="textiboi nav-item" href="/games" onclick="loadPage('/games', event)">games</a>
+          <a class="textiboi nav-item" href="/mobile" onclick="loadPage('/mobile', event)">mobile</a>
           <a class="textiboi nav-item" href="mailto:leo@leonimust.com">contact</a>
        </div>`;
 

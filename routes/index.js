@@ -14,6 +14,10 @@ router.get('/projects', function (req, res, next) {
   res.render('projects', { bodyClass: 'projects-page' });
 });
 
+router.get('/mobile', function (req, res, next) {
+  res.render('mobile', { bodyClass: 'projects-page' });
+});
+
 const checkSubdomain = async (url) => {
   try {
     const response = await axios.get(url, { timeout: 5000 });

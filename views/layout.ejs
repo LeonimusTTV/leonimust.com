@@ -103,7 +103,7 @@
 
         function updateStatus() {
             const p = window.location.pathname;
-            if (music.paused && (p === '/projects' || p === '/games')) {
+            if (music.paused && (p === '/projects' || p === '/games' || p === '/mobile')) {
                 window.location.pathname = '/';
             }
         }
@@ -122,6 +122,15 @@
         music.addEventListener('play', toggleMusicIndicator);
         music.addEventListener('pause', toggleMusicIndicator);
 
+        // dApp Store modal
+        function openDappModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('dapp-modal-overlay').classList.add('active');
+        }
+        function closeDappModal() {
+            document.getElementById('dapp-modal-overlay').classList.remove('active');
+        }
+
         // Initialize music indicator state and restore user's volume preference
         window.onload = function() {
             updateStatus();
@@ -136,5 +145,57 @@
             }
         };
         </script>
+
+        <!-- dApp Store modal — lives outside #main so position:fixed works correctly -->
+        <style>
+            #dapp-modal-overlay {
+                display: none;
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 2000;
+                justify-content: center;
+                align-items: center;
+            }
+            #dapp-modal-overlay.active { display: flex; }
+            #dapp-modal {
+                background: #111;
+                border: 1px solid #2a2a2a;
+                border-radius: 10px;
+                padding: 28px 32px;
+                max-width: 360px;
+                width: 90%;
+                text-align: center;
+                font-family: monospace;
+                color: #ccc;
+            }
+            #dapp-modal h3 { color: #fff; margin: 0 0 12px; font-size: 1rem; letter-spacing: 0.04em; }
+            #dapp-modal p { margin: 0 0 20px; font-size: 0.82rem; line-height: 1.6; color: #888; }
+            #dapp-modal .modal-close {
+                background: none;
+                border: 1px solid #333;
+                color: #aaa;
+                font-family: monospace;
+                font-size: 0.8rem;
+                padding: 7px 20px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: border-color 0.2s, color 0.2s;
+            }
+            #dapp-modal .modal-close:hover { border-color: #fff; color: #fff; }
+        </style>
+        <div id="dapp-modal-overlay"
+            onclick="if(event.target===this) closeDappModal()">
+            <div id="dapp-modal">
+                <h3>solana mobile only</h3>
+                <p>this app is exclusively available on the <strong
+                        style="color:#31a79a">dApp Store</strong> for <strong
+                        style="color:#fff">Solana Mobile</strong> devices (Saga
+                    / Chapter 2).<br><br>it cannot be downloaded from a regular
+                    browser or app store.</p>
+                <button class="modal-close" onclick="closeDappModal()">got
+                    it</button>
+            </div>
+        </div>
     </body>
 </html>
