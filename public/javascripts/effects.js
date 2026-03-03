@@ -63,20 +63,20 @@ function createDevBackground() {
   function randomise(el) {
     el.textContent = chars[Math.floor(Math.random() * chars.length)];
     el.style.left = (Math.random() * 98) + 'vw';
-    el.style.top  = (Math.random() * 95) + 'vh';
+    el.style.top = (Math.random() * 95) + 'vh';
   }
 
   for (let i = 0; i < MAX_COUNT; i++) {
     const el = document.createElement('div');
     el.className = 'dev-bg-char';
 
-    const size     = 12 + Math.floor(Math.random() * 8); // 12–20px
-    const duration = 5  + Math.random() * 7;             // 5–12s per cycle
-    const delay    = -(Math.random() * duration);         // stagger: start mid-cycle
+    const size = 12 + Math.floor(Math.random() * 8); // 12–20px
+    const duration = 5 + Math.random() * 7;             // 5–12s per cycle
+    const delay = -(Math.random() * duration);         // stagger: start mid-cycle
 
-    el.style.fontSize         = size + 'px';
+    el.style.fontSize = size + 'px';
     el.style.animationDuration = duration + 's';
-    el.style.animationDelay   = delay + 's';
+    el.style.animationDelay = delay + 's';
 
     randomise(el);
 
