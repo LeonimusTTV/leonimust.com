@@ -693,7 +693,6 @@ body:not(.home-page) #overlay {
     }
 }
 
-/* ---- Staggered animation delays (replaces inline styles) ---- */
 .nav-container .nav-item:nth-child(1) {
     animation-delay: 100ms;
 }
@@ -730,12 +729,18 @@ body:not(.home-page) #overlay {
     animation-delay: 0.4s;
 }
 
-/* ---- Back-link spacing (replaces inline margin-top: 15px) ---- */
+.container-flex .project:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.container-flex .project:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
 .nav-back {
     margin-top: 15px;
 }
 
-/* ---- Store badges (moved from mobile.ejs inline <style>) ---- */
 .store-badges {
     display: flex;
     flex-direction: column;
