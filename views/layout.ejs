@@ -141,6 +141,15 @@
             document.getElementById('dapp-modal-overlay').classList.remove('active');
         }
 
+        // WIP modal
+        function openWipModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('wip-modal-overlay').classList.add('active');
+        }
+        function closeWipModal() {
+            document.getElementById('wip-modal-overlay').classList.remove('active');
+        }
+
         // Initialize music indicator state and restore user's volume preference
         window.onload = function() {
             updateStatus();
@@ -155,6 +164,18 @@
             }
         };
         </script>
+
+        <!-- WIP modal — lives outside #main so position:fixed works correctly -->
+        <div id="wip-modal-overlay"
+            onclick="if(event.target===this) closeWipModal()">
+            <div id="wip-modal">
+                <h3>work in progress</h3>
+                <p>this project isn't accessible yet.<br><br>it's currently
+                    being built and will be available soon. stay tuned.</p>
+                <button class="modal-close" onclick="closeWipModal()">got
+                    it</button>
+            </div>
+        </div>
 
         <!-- dApp Store modal — lives outside #main so position:fixed works correctly -->
         <style>
@@ -193,6 +214,43 @@
                 transition: border-color 0.2s, color 0.2s;
             }
             #dapp-modal .modal-close:hover { border-color: #fff; color: #fff; }
+
+            /* WIP modal — reuses same base styles */
+            #wip-modal-overlay {
+                display: none;
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 2000;
+                justify-content: center;
+                align-items: center;
+            }
+            #wip-modal-overlay.active { display: flex; }
+            #wip-modal {
+                background: #111;
+                border: 1px solid #2a2a2a;
+                border-radius: 10px;
+                padding: 28px 32px;
+                max-width: 360px;
+                width: 90%;
+                text-align: center;
+                font-family: monospace;
+                color: #ccc;
+            }
+            #wip-modal h3 { color: #fff; margin: 0 0 12px; font-size: 1rem; letter-spacing: 0.04em; }
+            #wip-modal p { margin: 0 0 20px; font-size: 0.82rem; line-height: 1.6; color: #888; }
+            #wip-modal .modal-close {
+                background: none;
+                border: 1px solid #333;
+                color: #aaa;
+                font-family: monospace;
+                font-size: 0.8rem;
+                padding: 7px 20px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: border-color 0.2s, color 0.2s;
+            }
+            #wip-modal .modal-close:hover { border-color: #fff; color: #fff; }
         </style>
         <div id="dapp-modal-overlay"
             onclick="if(event.target===this) closeDappModal()">
