@@ -1,9 +1,11 @@
-FROM denoland/deno:latest
+FROM oven/bun:canary-alpine
 
 WORKDIR /app
 
 COPY . .
 
-RUN deno i
+RUN bun install
 
-CMD [ "deno", "run", "start" ]
+EXPOSE 3001
+
+CMD ["bun", "run", "start"]
