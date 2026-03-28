@@ -26,12 +26,14 @@
 
     </head>
     <body class="<%= locals.bodyClass || 'home-page' %>">
-        <div id="main">
-            <div id="overlay"
-                onclick="music.play(); addStuff(); window.userHasEntered = true;"><span
-                    class="header" id="status_text"></span></div>
-            <%- body %>
-        </div>
+        <main id="content-main">
+            <div id="main">
+                <div id="overlay"
+                    onclick="music.play(); addStuff(); window.userHasEntered = true;"><span
+                        class="header" id="status_text"></span></div>
+                <%- body %>
+            </div>
+        </main>
 
         <!-- Music controls -->
         <div class="music-controls-container">

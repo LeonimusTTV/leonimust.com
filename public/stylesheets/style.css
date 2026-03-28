@@ -220,6 +220,10 @@ button:focus {
     z-index: 10;
 }
 
+#overlay #status_text {
+    color: #d6d6d6;
+}
+
 .nav-container {
     display: flex;
     justify-content: center;
@@ -578,7 +582,7 @@ button:focus {
 
     0%,
     100% {
-        opacity: 0.6;
+        opacity: 1;
         transform: scale(1);
     }
 
