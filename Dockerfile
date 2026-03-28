@@ -5,6 +5,7 @@ WORKDIR /app
 COPY . .
 
 RUN bun install
+RUN bun run build
 
 EXPOSE 3001
 

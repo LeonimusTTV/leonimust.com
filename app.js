@@ -5,26 +5,32 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import compression from 'compression';
 import requestIp from 'request-ip';
 import indexRouter from './routes/index.js';
 import expressLayouts from 'express-ejs-layouts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const isProduction = process.env.NODE_ENV === 'production';
 
 const app = express();
 
 app.use(requestIp.mw());
 
+app.disable('x-powered-by');
+
 app.use(expressLayouts);
 
 app.set('layout', 'layout');
+app.set('view cache', isProduction);
 
 // see which ip is comming into the website
 app.use((req, res, next) => {
-  let clientIp = req.clientIp;
-
-  console.log('Raw Client IP:', clientIp);
+  if (!isProduction) {
+    const clientIp = req.clientIp;
+    console.log('Raw Client IP:', clientIp);
+  }
 
   next();
 });
@@ -33,11 +39,19 @@ app.use((req, res, next) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+if (!isProduction) {
+  app.use(logger('dev'));
+}
+
+app.use(compression({ threshold: 1024 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), isProduction ? {
+  maxAge: '1d',
+  etag: true,
+  lastModified: true
+} : undefined));
 
 app.use('/', indexRouter);
 
