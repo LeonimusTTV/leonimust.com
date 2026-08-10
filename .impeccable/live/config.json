@@ -1,0 +1,6 @@
+{
+  "files": ["views/layout.ejs"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-10T00:00:00Z",
+  "title": "Design System: leonimust.com",
+  "extensions": {
+    "colorMeta": {
+      "bg-void": { "role": "neutral", "displayName": "Void Black", "canonical": "#1a1a1a", "tonalRamp": ["#0a0a0a", "#141414", "#1a1a1a", "#242424", "#2f2f2f", "#3a3a3a", "#4a4a4a", "#5c5c5c"] },
+      "text-dim": { "role": "neutral", "displayName": "Dim Gray", "canonical": "#444444", "tonalRamp": ["#1c1c1c", "#2a2a2a", "#383838", "#444444", "#5a5a5a", "#787878", "#9c9c9c", "#c4c4c4"] },
+      "text-bright": { "role": "primary", "displayName": "Signal White", "canonical": "#ffffff", "tonalRamp": ["#c4c4c4", "#d0d0d0", "#dcdcdc", "#e6e6e6", "#f0f0f0", "#f6f6f6", "#fbfbfb", "#ffffff"] },
+      "border-subtle": { "role": "neutral", "displayName": "Border Whisper", "canonical": "rgba(255, 255, 255, 0.08)" },
+      "card-surface": { "role": "neutral", "displayName": "Card Surface", "canonical": "rgba(255, 255, 255, 0.02)" },
+      "card-surface-hover": { "role": "neutral", "displayName": "Card Surface Hover", "canonical": "rgba(255, 255, 255, 0.05)" },
+      "glow-white": { "role": "neutral", "displayName": "Glow White", "canonical": "rgba(255, 255, 255, 0.15)" },
+      "status-up": { "role": "secondary", "displayName": "Status Up", "canonical": "#4caf50", "tonalRamp": ["#0f2a10", "#1c4a1e", "#2a6b2d", "#388e3c", "#4caf50", "#72c476", "#9fd8a1", "#cdecce"] },
+      "status-down": { "role": "secondary", "displayName": "Status Down", "canonical": "#ff5555", "tonalRamp": ["#3a0d0d", "#661616", "#992121", "#cc2b2b", "#ff5555", "#ff8080", "#ffaaaa", "#ffd4d4"] },
+      "wip-amber": { "role": "tertiary", "displayName": "WIP Amber", "canonical": "#b8963e", "tonalRamp": ["#2b2110", "#4c3c1c", "#6e5628", "#907034", "#b8963e", "#cbb26e", "#ddcc9e", "#eee6cf"] },
+      "dapp-teal": { "role": "tertiary", "displayName": "dApp-Store Teal", "canonical": "#31a79a", "tonalRamp": ["#0c2b27", "#154a43", "#1e695f", "#27887a", "#31a79a", "#5fbcb1", "#8fd1c9", "#c7e8e4"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page title only (leonimust.com, projects, games, apps) — bold, browser-default 2em." },
+      "title": { "displayName": "Title", "purpose": "Legal-page section headers only." },
+      "body": { "displayName": "Body", "purpose": "Default for nearly everything: paragraphs, nav links, project labels." },
+      "label": { "displayName": "Label", "purpose": "Small state text: status lines, WIP tag, volume readout." }
+    },
+    "shadows": [
+      { "name": "hover-lift", "value": "0 16px 40px rgba(0, 0, 0, 0.5)", "purpose": "Project card on hover only, paired with a -8px lift." },
+      { "name": "floating-panel", "value": "0 8px 24px rgba(0, 0, 0, 0.4)", "purpose": "Overlays that float above content at rest: volume popover, modals." }
+    ],
+    "motion": [
+      { "name": "ease-hover", "value": "0.25s ease", "purpose": "Default color/border/background transition on hover states." },
+      { "name": "ease-lift", "value": "0.35s cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Card lift + shadow transition on hover." },
+      { "name": "pulse-down", "value": "pulse-red 2s ease-in-out infinite", "purpose": "The only self-animating color: a down-status indicator pulsing for attention." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Nav Item",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "A navigation link styled as a quiet chip; brightens and underlines on hover.",
+      "html": "<a class=\"ds-nav-item\" href=\"#\">projects</a>",
+      "css": ".ds-nav-item { display: inline-block; position: relative; overflow: hidden; padding: 9px 18px; border: 1px solid transparent; border-radius: 4px; color: #444444; font-family: 'Courier New', Courier, monospace; text-decoration: none; transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease; } .ds-nav-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.5); transition: width 0.3s ease; } .ds-nav-item:hover { color: #ffffff; border-color: rgba(255,255,255,0.08); background: rgba(255,255,255,0.05); } .ds-nav-item:hover::after { width: 100%; } .ds-nav-item:focus-visible { outline: 1px solid rgba(255,255,255,0.4); outline-offset: 3px; }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "project-card",
+      "description": "The primary content unit for projects, games, and apps — flat at rest, lifts and gains a diagonal sheen on hover.",
+      "html": "<div class=\"ds-project-card\"><img class=\"ds-project-card-img\" src=\"#\" alt=\"\"><a class=\"ds-project-card-title\" href=\"#\">spoticraft</a><p class=\"ds-project-card-desc\">spotify in minecraft</p></div>",
+      "css": ".ds-project-card { position: relative; display: flex; flex-direction: column; align-items: center; width: 260px; padding: 22px 18px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; background: rgba(255,255,255,0.02); overflow: hidden; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), border-color 0.35s ease, box-shadow 0.35s ease; } .ds-project-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%); opacity: 0; transition: opacity 0.35s ease; } .ds-project-card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.18); box-shadow: 0 16px 40px rgba(0,0,0,0.5); } .ds-project-card:hover::before { opacity: 1; } .ds-project-card-img { height: 140px; width: 100%; object-fit: contain; margin-bottom: 12px; filter: grayscale(15%); transition: filter 0.35s ease, transform 0.35s ease; } .ds-project-card:hover .ds-project-card-img { filter: grayscale(0%) brightness(1.08); transform: scale(1.04); } .ds-project-card-title, .ds-project-card-desc { position: relative; z-index: 1; text-align: center; color: #444444; font-family: 'Courier New', Courier, monospace; text-decoration: none; transition: color 0.25s ease; } .ds-project-card:hover .ds-project-card-title, .ds-project-card:hover .ds-project-card-desc { color: #ffffff; }"
+    },
+    {
+      "name": "Status Indicator",
+      "kind": "custom",
+      "refersTo": "status-up",
+      "description": "Live up/down state pulled from a real network check; down pulses for attention.",
+      "html": "<p class=\"ds-status ds-status-up\">supercold is up</p>\n<p class=\"ds-status ds-status-down\">doom is down</p>",
+      "css": ".ds-status { font-family: 'Courier New', Courier, monospace; font-size: 0.82em; opacity: 0.75; margin-top: 4px; } .ds-status-up { color: #4caf50; text-shadow: 0 0 6px rgba(76,175,80,0.4); } .ds-status-down { color: #ff5555; animation: ds-pulse-red 2s ease-in-out infinite; } @keyframes ds-pulse-red { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }"
+    },
+    {
+      "name": "WIP Badge",
+      "kind": "custom",
+      "refersTo": "project-card",
+      "description": "Dashed-border card variant marking unfinished work, with a corner tag and a blinking terminal cursor in the copy.",
+      "html": "<div class=\"ds-project-card ds-wip-card\"><a class=\"ds-project-card-title\">package tracker</a><p class=\"ds-project-card-desc\">track all your packages in one app<span class=\"ds-wip-cursor\"></span></p></div>",
+      "css": ".ds-wip-card { border: 1px dashed rgba(184,150,62,0.35); } .ds-wip-card:hover { border-color: rgba(184,150,62,0.6); } .ds-wip-card::after { content: '[ wip ]'; position: absolute; top: 10px; right: 12px; font-family: 'Courier New', Courier, monospace; font-size: 0.68em; color: #b8963e; opacity: 0.7; letter-spacing: 0.04em; } .ds-wip-cursor::after { content: '_'; color: #b8963e; opacity: 0.8; animation: ds-blink-cursor 1.1s step-end infinite; } @keyframes ds-blink-cursor { 0%, 100% { opacity: 0.8; } 50% { opacity: 0; } }"
+    },
+    {
+      "name": "Modal",
+      "kind": "custom",
+      "refersTo": "modal-close",
+      "description": "Overlay dialog (WIP notice, dApp Store explainer) — the system's one permanently-shadowed surface.",
+      "html": "<div class=\"ds-modal\"><h3 class=\"ds-modal-title\">work in progress</h3><p class=\"ds-modal-body\">this project isn't accessible yet. it's currently being built and will be available soon.</p><button class=\"ds-modal-close\">got it</button></div>",
+      "css": ".ds-modal { background: #111111; border: 1px solid #2a2a2a; border-radius: 10px; padding: 28px 32px; max-width: 360px; width: 90%; text-align: center; font-family: 'Courier New', Courier, monospace; box-shadow: 0 8px 24px rgba(0,0,0,0.4); } .ds-modal-title { color: #ffffff; margin: 0 0 12px; font-size: 1rem; letter-spacing: 0.04em; } .ds-modal-body { margin: 0 0 20px; font-size: 0.82rem; line-height: 1.6; color: #888888; } .ds-modal-close { background: none; border: 1px solid #333333; color: #aaaaaa; font-family: 'Courier New', Courier, monospace; font-size: 0.8rem; padding: 7px 20px; border-radius: 6px; cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease; } .ds-modal-close:hover { border-color: #ffffff; color: #ffffff; } .ds-modal-close:focus-visible { outline: 1px solid rgba(255,255,255,0.4); outline-offset: 3px; }"
+    },
+    {
+      "name": "Ring Cursor",
+      "kind": "custom",
+      "refersTo": "text-bright",
+      "description": "Custom cursor replacing the system pointer above 768px: soft-follows the mouse, expands over interactive elements, shrinks on click.",
+      "html": "<div class=\"ds-dynamic-cursor\"></div>",
+      "css": ".ds-dynamic-cursor { position: fixed; width: 22px; height: 22px; border: 1px solid rgba(255,255,255,0.35); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease; } .ds-dynamic-cursor.hover { width: 38px; height: 38px; border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.06); } .ds-dynamic-cursor.click { width: 16px; height: 16px; background: rgba(255,255,255,0.2); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Signal in the Dark",
+    "overview": "Almost the entire interface sits just above invisible: a near-black void, dim gray type, borders you can barely see. Nothing decorative is allowed to compete for attention — so when something does light up (white on hover, a green \"up\" pulse, a red \"down\" flicker, the amber WIP tag), it reads as a signal, not styling. The site opens on a loading gate and autoplay music before any content exists, so the first thing a visitor does is tune in rather than land on a page. Everything after that — the randomized entrance animation, the drifting background code symbols, the ring cursor that only fills in on hover — keeps that same posture: quiet by default, alive on contact.\n\nThis is explicitly not a corporate SaaS portfolio. No gradients, no card shadows at rest, no rounded pill buttons, no trust-badge polish. It is a terminal that happens to render a portfolio, built by one person with a dry, self-aware sense of humor (\"i could pwned you but would i?\", \"catjpg still watching\").",
+    "keyCharacteristics": [
+      "Monochrome-first: color exists only as functional signal, never as decoration",
+      "Flat at rest, alive on interaction: shadow, lift, and brightness are all earned by hover",
+      "Hierarchy through color/opacity (dim → bright), not through font-size — most type sits at browser-default sizes",
+      "Entry is a ritual (loading → music gate → randomized entrance), not a landing"
+    ],
+    "rules": [
+      { "name": "The Grayscale-First Rule", "body": "Color is reserved for state, never decoration. The only hues that exist outside black/white/gray are functional: Status Up green, Status Down red, WIP Amber, and the single dApp-Store Teal. If a new element wants color and isn't communicating state, it doesn't get one.", "section": "colors" },
+      { "name": "The No-Scale-Hierarchy Rule", "body": "Reach for color/opacity before font-size. Dim gray → bright white communicates \"primary vs. secondary\" more than the type scale does; the scale itself barely moves (three real steps: label, body, display).", "section": "typography" },
+      { "name": "The Flat-Until-Touched Rule", "body": "Static content never carries a shadow. If something has depth at rest, it had better be an overlay (modal, floating panel) — not a card, section, or button sitting in the normal flow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep new UI grayscale by default; earn any color by tying it to a real state (up/down, WIP, a named external brand).",
+      "Do let hover be where the site \"wakes up\" — brightness, lift, and shadow are interaction rewards, not resting decoration.",
+      "Do keep the one monospace face for everything; don't introduce a second font for \"emphasis.\"",
+      "Do keep status indicators (/games) and store badges (/mobile) wired to real state — they are proof-of-life, not copy.",
+      "Do stagger multi-item entrances (nav, cards) rather than having them appear all at once."
+    ],
+    "donts": [
+      "Don't add gradients, drop shadows at rest, rounded pill buttons, or any \"trust us\" SaaS polish — that's the explicit anti-reference.",
+      "Don't give any element a resting shadow unless it's a genuine overlay (modal, floating panel).",
+      "Don't reach for font-size to build hierarchy before reaching for color/opacity.",
+      "Don't reuse dApp-Store Teal outside the Solana Mobile citation, or WIP Amber outside marking unfinished work — both are single-purpose signal colors, not a starter palette.",
+      "Don't fabricate uptime, availability, or store-badge state — if it isn't live-checked or real, it doesn't ship as if it were."
+    ]
+  }
+}
