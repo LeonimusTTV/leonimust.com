@@ -1,4 +1,4 @@
-<h1 name="top" id="status_text" class="header animated"><a>apps</a></h1>
+<h1 name="top" id="page_title" class="header animated"><a>apps</a></h1>
 <div class="container-flex">
   <!--<div class="project animated fadeIn" style="animation-delay: 0.1s">
     <img class="img" src="/images/placeholder-app.webp" alt="My App">
@@ -22,7 +22,7 @@
   <div class="project animated fadeIn">
     <img class="img" src="/images/sm-logo-512x512.webp"
       alt="subscriptions management">
-    <a class="textiboi">subscriptions management</a>
+    <p class="textiboi">subscriptions management</p>
     <p class="textiboi">simple management app for your subscriptions</p>
     <div class="store-badges">
       <span class="dapp-badge-wrap" onclick="openDappModal(event)">
@@ -30,11 +30,21 @@
           alt="Get it on dApp Store">
       </span>
     </div>
+    <div class="legal-links">
+      <a href="/legal/subscriptions-management/copyright"
+        onclick="loadPage('/legal/subscriptions-management/copyright', event)">copyright</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/legal/subscriptions-management/licensing"
+        onclick="loadPage('/legal/subscriptions-management/licensing', event)">licensing</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/legal/subscriptions-management/privacy"
+        onclick="loadPage('/legal/subscriptions-management/privacy', event)">privacy</a>
+    </div>
   </div>
   <div class="project animated fadeIn">
     <img class="img" src="/images/focus-logo-512x512.webp"
-      alt="focus app">
-    <a class="textiboi">focus</a>
+      alt="focus app" loading="lazy">
+    <p class="textiboi">focus</p>
     <p class="textiboi">focus on things that matter</p>
     <div class="store-badges">
       <span class="dapp-badge-wrap" onclick="openDappModal(event)">
@@ -42,11 +52,21 @@
           alt="Get it on dApp Store">
       </span>
     </div>
+    <div class="legal-links">
+      <a href="/legal/focus/copyright"
+        onclick="loadPage('/legal/focus/copyright', event)">copyright</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/legal/focus/licensing"
+        onclick="loadPage('/legal/focus/licensing', event)">licensing</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/legal/focus/privacy"
+        onclick="loadPage('/legal/focus/privacy', event)">privacy</a>
+    </div>
   </div>
   <div class="project animated fadeIn">
     <img class="img" src="/images/dyp-logo-512x512.webp"
-      alt="delay your purchases">
-    <a class="textiboi">delay your purchases</a>
+      alt="delay your purchases" loading="lazy">
+    <p class="textiboi">delay your purchases</p>
     <p class="textiboi">buy things that you actually need</p>
     <div class="store-badges">
       <span class="dapp-badge-wrap" onclick="openDappModal(event)">
@@ -54,10 +74,20 @@
           alt="Get it on dApp Store">
       </span>
     </div>
+    <div class="legal-links">
+      <a href="/legal/delay-your-purchases/copyright"
+        onclick="loadPage('/legal/delay-your-purchases/copyright', event)">copyright</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/legal/delay-your-purchases/licensing"
+        onclick="loadPage('/legal/delay-your-purchases/licensing', event)">licensing</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/legal/delay-your-purchases/privacy"
+        onclick="loadPage('/legal/delay-your-purchases/privacy', event)">privacy</a>
+    </div>
   </div>
   <div class="project wip animated fadeIn">
     <img class="img" src="/images/pt-logo-512x512.webp"
-      alt="package tracker">
+      alt="package tracker" loading="lazy">
     <a class="textiboi" onclick="openWipModal(event)">package tracker</a>
     <p class="textiboi">track all your packages in one app<span
         class="wip-cursor"></span></p>
@@ -66,6 +96,16 @@
         <img class="store-badge" src="/images/badge-dappstore.svg"
           alt="Get it on dApp Store">
       </span>
+    </div>
+    <div class="legal-links">
+      <a href="/legal/package-tracking/copyright"
+        onclick="loadPage('/legal/package-tracking/copyright', event)">copyright</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/legal/package-tracking/licensing"
+        onclick="loadPage('/legal/package-tracking/licensing', event)">licensing</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/legal/package-tracking/privacy"
+        onclick="loadPage('/legal/package-tracking/privacy', event)">privacy</a>
     </div>
   </div>
 </div>

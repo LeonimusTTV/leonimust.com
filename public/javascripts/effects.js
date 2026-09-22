@@ -8,6 +8,7 @@ class DynamicCursor {
     this._y = 0;
     this._cx = 0;
     this._cy = 0;
+    this._scale = 1;
     this.init();
   }
 
@@ -19,6 +20,9 @@ class DynamicCursor {
   }
 
   bindEvents() {
+    // Enlarge ring on interactive elements
+    const hoverSel = 'a, button, .textiboi, .project, .nav-item, #overlay';
+
     document.addEventListener('mousemove', (e) => {
       this._x = e.clientX;
       this._y = e.clientY;
@@ -28,17 +32,22 @@ class DynamicCursor {
     });
 
     const animate = () => {
-      // Soft follow (easing factor 0.12)
+      // Soft follow (easing factor 0.12), composited via transform only —
+      // no left/top writes, so this never triggers layout.
       this._cx += (this._x - this._cx) * 0.12;
       this._cy += (this._y - this._cy) * 0.12;
-      this.cursor.style.left = this._cx + 'px';
-      this.cursor.style.top = this._cy + 'px';
+
+      const targetScale = this.cursor.classList.contains('click') ? 16 / 22
+        : this.cursor.classList.contains('hover') ? 38 / 22
+        : 1;
+      this._scale += (targetScale - this._scale) * 0.25;
+
+      this.cursor.style.transform =
+        `translate3d(${this._cx}px, ${this._cy}px, 0) translate(-50%, -50%) scale(${this._scale})`;
       requestAnimationFrame(animate);
     };
     animate();
 
-    // Enlarge ring on interactive elements
-    const hoverSel = 'a, button, .textiboi, .project, .nav-item, #overlay';
     document.addEventListener('mouseover', (e) => {
       if (e.target.closest(hoverSel)) this.cursor.classList.add('hover');
     });
@@ -94,7 +103,8 @@ function createDevBackground() {
 // Init
 // =====================================================
 document.addEventListener('DOMContentLoaded', () => {
-  if (window.innerWidth > 768) {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (window.innerWidth > 768 && !prefersReducedMotion) {
     new DynamicCursor();
   }
   createDevBackground();

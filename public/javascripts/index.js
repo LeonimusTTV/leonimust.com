@@ -19,23 +19,8 @@ function startWriting() {
 
   const strs = [
     "hello from leonimust :3",
-    "credits to wolfie and it's old project methamphetamine.solutions",
+    "credits to wolfie and its old project methamphetamine.solutions",
     "i could pwned you but would i ?",
-    "stop paying for inferior devs",
-    "code is art, so let's make it beautiful",
-    "leonimust delivers, every time",
-    "no gimmicks, just clean code",
-    "why settle for average?",
-    "your projects deserve better",
-    "crafting digital experiences with a spark",
-    "minimalism is the ultimate sophistication",
-    "where creativity meets code",
-    "your vision, my execution",
-    "unlock your project's full potential",
-    "stop waiting, start creating",
-    "no bugs, just features",
-    "built with precision, delivered with passion",
-    "the dev you didn't know you needed",
     "catjpg still watching",
   ];
 
@@ -59,6 +44,33 @@ function stopWriting() {
   if (typewriterInstance) {
     typewriterInstance.stop();
     typewriterInstance = null;
+  }
+}
+
+// =====================================================
+// Entry gate — shared by the home page's full ritual and
+// the lightweight gate shown on a page loaded via deep link
+// =====================================================
+function enterSite(event) {
+  if (event) event.preventDefault();
+  if (window.userHasEntered) return;
+  window.userHasEntered = true;
+
+  if (typeof music !== 'undefined' && music.paused) {
+    music.play().catch(() => {});
+  }
+
+  if (document.body.classList.contains('home-page') && typeof addStuff === 'function') {
+    addStuff();
+    return;
+  }
+
+  // Deep-linked page: content is already rendered underneath the gate,
+  // so just lift the gate instead of replacing it like addStuff() does on home.
+  const overlay = document.getElementById('overlay');
+  if (overlay) {
+    overlay.classList.add('overlay-exit');
+    overlay.addEventListener('transitionend', () => overlay.remove(), { once: true });
   }
 }
 

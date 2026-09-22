@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>leonimust.com</title>
-        <script src="/javascripts/core.js"></script>
+        <script src="/javascripts/core.js" defer></script>
         <audio id="music" src="/music/msc.mp3" autoplay loop onplaying
             style="display: none;"></audio>
         <link rel="stylesheet" href="/stylesheets/style.css">
@@ -21,16 +21,34 @@
         <meta name="twitter:title" content="leonimust.com">
         <meta name="twitter:description"
             content="mini portfolio. web stuff, games, mobile apps.">
-        <script src="/javascripts/index.js"></script>
-        <script src="/javascripts/effects.js"></script>
+        <script src="/javascripts/index.js" defer></script>
+        <script src="/javascripts/effects.js" defer></script>
 
     </head>
     <body class="<%= locals.bodyClass || 'home-page' %>">
         <main id="content-main">
             <div id="main">
-                <div id="overlay"
-                    onclick="music.play(); addStuff(); window.userHasEntered = true;"><span
+                <div id="overlay" role="button" tabindex="0"
+                    aria-label="Enter site"
+                    onclick="enterSite(event)"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();enterSite(event);}"><span
                         class="header" id="status_text"></span></div>
+                <script>
+                    // Runs synchronously, before the page content below paints:
+                    // gate deep-linked routes behind the entry ritual instead of
+                    // rendering their content and then yanking the visitor to /.
+                    (function () {
+                        var p = window.location.pathname;
+                        if (p !== '/projects' && p !== '/games' && p !== '/mobile') return;
+                        var audio = document.getElementById('music');
+                        if (audio && !audio.paused) return; // already playing, no gate needed
+                        var overlay = document.getElementById('overlay');
+                        var label = overlay.querySelector('#status_text');
+                        overlay.classList.add('overlay-gated');
+                        label.innerHTML = 'click to enter<span class="overlay-hint">(turns on sound)</span>';
+                        label.classList.add('begin');
+                    })();
+                </script>
                 <%- body %>
             </div>
         </main>
@@ -113,13 +131,6 @@
             }
         });
 
-        function updateStatus() {
-            const p = window.location.pathname;
-            if (music.paused && (p === '/projects' || p === '/games' || p === '/mobile')) {
-                window.location.pathname = '/';
-            }
-        }
-
         // Toggle music indicator visibility based on music playing status
         function toggleMusicIndicator() {
             if (music.paused) {
@@ -154,7 +165,6 @@
 
         // Initialize music indicator state and restore user's volume preference
         window.onload = function() {
-            updateStatus();
             toggleMusicIndicator();
             
             // Load saved volume if exists
