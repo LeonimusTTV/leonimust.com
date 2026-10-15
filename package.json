@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "express": "=5.1.0",
-    "http-errors": "=2.0.0",
+    "http-errors": "=2.0.1",
     "cookie-parser": "=1.4.7",
     "morgan": "=1.12.0",
     "ejs": "=5.0.1",
