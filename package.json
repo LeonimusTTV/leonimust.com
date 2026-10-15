@@ -13,7 +13,7 @@
     "http-errors": "=2.0.1",
     "cookie-parser": "=1.4.7",
     "morgan": "=1.12.0",
-    "ejs": "=5.0.1",
+    "ejs": "=7.0.1",
     "express-ejs-layouts": "=2.5.1",
     "compression": "=1.8.2",
     "axios": "=1.18.0",
