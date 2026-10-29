@@ -1,4 +1,4 @@
 .git
 meth.zip
 node_modules
-deno.lock
+bun.lock
