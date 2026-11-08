@@ -755,6 +755,22 @@ body:not(.home-page) #overlay.overlay-gated {
     animation-delay: 0.6s;
 }
 
+.container-flex .project:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+.container-flex .project:nth-child(8) {
+    animation-delay: 0.8s;
+}
+
+.container-flex .project:nth-child(9) {
+    animation-delay: 0.9s;
+}
+
+.container-flex .project:nth-child(10) {
+    animation-delay: 1s;
+}
+
 .nav-back {
     margin-top: 15px;
 }
