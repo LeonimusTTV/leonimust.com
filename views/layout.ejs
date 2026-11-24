@@ -1,281 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>leonimust.com</title>
-        <script src="/javascripts/core.js" defer></script>
-        <audio id="music" src="/music/msc.mp3" autoplay loop onplaying
-            style="display: none;"></audio>
-        <link rel="stylesheet" href="/stylesheets/style.css">
-        <link rel="stylesheet" href="/stylesheets/animate.css">
-        <meta name="description"
-            content="leonimust's mini portfolio. web stuff, games, mobile apps.">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= locals.title ? title + ' · leonimust.com' : 'leonimust.com' %></title>
+        <meta name="description" content="leonimust's mini portfolio. web stuff, games, mobile apps.">
         <meta name="keywords" content="portfolio, leonimust">
         <meta name="author" content="LeonimusT">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#0b0b0a">
         <meta property="og:title" content="leonimust.com">
-        <meta property="og:description"
-            content="mini portfolio. web stuff, games, mobile apps.">
+        <meta property="og:description" content="mini portfolio. web stuff, games, mobile apps.">
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://leonimust.com">
         <meta name="twitter:card" content="summary">
         <meta name="twitter:title" content="leonimust.com">
-        <meta name="twitter:description"
-            content="mini portfolio. web stuff, games, mobile apps.">
-        <script src="/javascripts/index.js" defer></script>
-        <script src="/javascripts/effects.js" defer></script>
-
+        <meta name="twitter:description" content="mini portfolio. web stuff, games, mobile apps.">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <noscript><style>#gate { display: none; } body:not(.entered) #main { visibility: visible; } .bar { opacity: 1; }</style></noscript>
     </head>
-    <body class="<%= locals.bodyClass || 'home-page' %>">
-        <main id="content-main">
-            <div id="main">
-                <div id="overlay" role="button" tabindex="0"
-                    aria-label="Enter site"
-                    onclick="enterSite(event)"
-                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();enterSite(event);}"><span
-                        class="header" id="status_text"></span></div>
-                <script>
-                    // Runs synchronously, before the page content below paints:
-                    // gate deep-linked routes behind the entry ritual instead of
-                    // rendering their content and then yanking the visitor to /.
-                    (function () {
-                        var p = window.location.pathname;
-                        if (p !== '/projects' && p !== '/games' && p !== '/mobile') return;
-                        var audio = document.getElementById('music');
-                        if (audio && !audio.paused) return; // already playing, no gate needed
-                        var overlay = document.getElementById('overlay');
-                        var label = overlay.querySelector('#status_text');
-                        overlay.classList.add('overlay-gated');
-                        label.innerHTML = 'click to enter<span class="overlay-hint">(turns on sound)</span>';
-                        label.classList.add('begin');
-                    })();
-                </script>
+    <body data-view="<%= locals.view || 'home' %>">
+        <audio id="music" src="/music/msc.mp3" preload="auto" loop></audio>
+        <canvas id="field" aria-hidden="true"></canvas>
+
+        <button id="gate" type="button" aria-label="click to enter (turns on sound)"><span class="hint">(turns on sound)</span></button>
+
+        <header class="bar top">
+            <span class="crumb"><a href="/">leonimust.com</a><span id="where"></span></span>
+            <span class="sky-wrap"><span id="sky"></span><span id="clock" aria-hidden="true"></span></span>
+        </header>
+
+        <main id="main">
+            <div class="view-root" data-view="<%= locals.view || 'home' %>">
                 <%- body %>
             </div>
         </main>
 
-        <!-- Music controls -->
-        <div class="music-controls-container">
-            <!-- Music indicator that shows volume control when clicked -->
-            <div class="music-indicator" id="musicIndicator">
-                <div class="music-bars">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
+        <footer class="bar bottom">
+            <span>msc.mp3 <span id="spec" aria-hidden="true"></span></span>
+            <div id="vol">
+                <button id="mute" type="button" aria-label="mute">♪</button>
+                <span id="volbar" role="slider" tabindex="0" aria-label="volume" aria-valuemin="0" aria-valuemax="100"></span>
+                <span id="volnum"></span>
             </div>
+        </footer>
 
-            <!-- Volume control panel -->
-            <div class="volume-control" id="volumeControl">
-                <input type="range" id="volumeSlider" min="0" max="100"
-                    value="70" class="volume-slider">
-                <div class="volume-display">
-                    <span id="volumeValue">70%</span>
-                </div>
-            </div>
-        </div>
+        <dialog id="dapp-modal">
+            <h3>solana mobile only</h3>
+            <p>this app is exclusively available on the <strong style="color: var(--dapp)">dApp Store</strong> for Solana Mobile devices (Saga / Chapter 2).<br><br>it cannot be downloaded from a regular browser or app store.</p>
+            <button type="button" data-close>got it</button>
+        </dialog>
+        <dialog id="wip-modal">
+            <h3>work in progress</h3>
+            <p>this project isn't accessible yet.<br><br>it's currently being built and will be available soon. stay tuned.</p>
+            <button type="button" data-close>got it</button>
+        </dialog>
 
-        <!-- Loading overlay -->
-        <div class="loading-overlay" id="loadingOverlay">
-            <div class="loading-spinner"></div>
-        </div>
-
-        <script>
-        const music = document.getElementById('music');
-        const musicIndicator = document.getElementById('musicIndicator');
-        const volumeControl = document.getElementById('volumeControl');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const volumeValue = document.getElementById('volumeValue');
-        
-        // Set initial volume
-        music.volume = volumeSlider.value / 100;
-        
-        // Update volume when slider changes
-        volumeSlider.addEventListener('input', function() {
-            const volume = this.value / 100;
-            music.volume = volume;
-            volumeValue.textContent = this.value + '%';
-            
-            // Save volume preference in localStorage
-            localStorage.setItem('userVolume', volume);
-        });
-        
-        // Toggle volume control visibility
-        musicIndicator.addEventListener('click', function(e) {
-            e.stopPropagation();
-            volumeControl.classList.toggle('show-volume');
-            
-            // Hide volume control after 5 seconds of inactivity
-            resetVolumeTimer();
-        });
-        
-        // Hide volume control when clicking elsewhere
-        document.addEventListener('click', function(e) {
-            if (!volumeControl.contains(e.target) && !musicIndicator.contains(e.target)) {
-                volumeControl.classList.remove('show-volume');
-            }
-        });
-        
-        // Timer to auto-hide volume control
-        let volumeTimer;
-        function resetVolumeTimer() {
-            clearTimeout(volumeTimer);
-            volumeTimer = setTimeout(() => {
-                volumeControl.classList.remove('show-volume');
-            }, 5000);
-        }
-        
-        // Update volume slider on mouse movement when visible
-        volumeControl.addEventListener('mousemove', function() {
-            if (volumeControl.classList.contains('show-volume')) {
-                resetVolumeTimer();
-            }
-        });
-
-        // Toggle music indicator visibility based on music playing status
-        function toggleMusicIndicator() {
-            if (music.paused) {
-                musicIndicator.style.display = 'none';
-                volumeControl.classList.remove('show-volume');
-            } else {
-                musicIndicator.style.display = 'flex';
-            }
-        }
-
-        // Add event listeners to track music state
-        music.addEventListener('play', toggleMusicIndicator);
-        music.addEventListener('pause', toggleMusicIndicator);
-
-        // dApp Store modal
-        function openDappModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('dapp-modal-overlay').classList.add('active');
-        }
-        function closeDappModal() {
-            document.getElementById('dapp-modal-overlay').classList.remove('active');
-        }
-
-        // WIP modal
-        function openWipModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('wip-modal-overlay').classList.add('active');
-        }
-        function closeWipModal() {
-            document.getElementById('wip-modal-overlay').classList.remove('active');
-        }
-
-        // Initialize music indicator state and restore user's volume preference
-        window.onload = function() {
-            toggleMusicIndicator();
-            
-            // Load saved volume if exists
-            const savedVolume = localStorage.getItem('userVolume');
-            if (savedVolume !== null) {
-                music.volume = savedVolume;
-                volumeSlider.value = savedVolume * 100;
-                volumeValue.textContent = Math.round(savedVolume * 100) + '%';
-            }
-        };
-        </script>
-
-        <!-- WIP modal — lives outside #main so position:fixed works correctly -->
-        <div id="wip-modal-overlay"
-            onclick="if(event.target===this) closeWipModal()">
-            <div id="wip-modal">
-                <h3>work in progress</h3>
-                <p>this project isn't accessible yet.<br><br>it's currently
-                    being built and will be available soon. stay tuned.</p>
-                <button class="modal-close" onclick="closeWipModal()">got
-                    it</button>
-            </div>
-        </div>
-
-        <!-- dApp Store modal — lives outside #main so position:fixed works correctly -->
-        <style>
-            #dapp-modal-overlay {
-                display: none;
-                position: fixed;
-                top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(0, 0, 0, 0.7);
-                z-index: 2000;
-                justify-content: center;
-                align-items: center;
-            }
-            #dapp-modal-overlay.active { display: flex; }
-            #dapp-modal {
-                background: #111;
-                border: 1px solid #2a2a2a;
-                border-radius: 10px;
-                padding: 28px 32px;
-                max-width: 360px;
-                width: 90%;
-                text-align: center;
-                font-family: monospace;
-                color: #ccc;
-            }
-            #dapp-modal h3 { color: #fff; margin: 0 0 12px; font-size: 1rem; letter-spacing: 0.04em; }
-            #dapp-modal p { margin: 0 0 20px; font-size: 0.82rem; line-height: 1.6; color: #888; }
-            #dapp-modal .modal-close {
-                background: none;
-                border: 1px solid #333;
-                color: #aaa;
-                font-family: monospace;
-                font-size: 0.8rem;
-                padding: 7px 20px;
-                border-radius: 6px;
-                cursor: pointer;
-                transition: border-color 0.2s, color 0.2s;
-            }
-            #dapp-modal .modal-close:hover { border-color: #fff; color: #fff; }
-
-            /* WIP modal — reuses same base styles */
-            #wip-modal-overlay {
-                display: none;
-                position: fixed;
-                top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(0, 0, 0, 0.7);
-                z-index: 2000;
-                justify-content: center;
-                align-items: center;
-            }
-            #wip-modal-overlay.active { display: flex; }
-            #wip-modal {
-                background: #111;
-                border: 1px solid #2a2a2a;
-                border-radius: 10px;
-                padding: 28px 32px;
-                max-width: 360px;
-                width: 90%;
-                text-align: center;
-                font-family: monospace;
-                color: #ccc;
-            }
-            #wip-modal h3 { color: #fff; margin: 0 0 12px; font-size: 1rem; letter-spacing: 0.04em; }
-            #wip-modal p { margin: 0 0 20px; font-size: 0.82rem; line-height: 1.6; color: #888; }
-            #wip-modal .modal-close {
-                background: none;
-                border: 1px solid #333;
-                color: #aaa;
-                font-family: monospace;
-                font-size: 0.8rem;
-                padding: 7px 20px;
-                border-radius: 6px;
-                cursor: pointer;
-                transition: border-color 0.2s, color 0.2s;
-            }
-            #wip-modal .modal-close:hover { border-color: #fff; color: #fff; }
-        </style>
-        <div id="dapp-modal-overlay"
-            onclick="if(event.target===this) closeDappModal()">
-            <div id="dapp-modal">
-                <h3>solana mobile only</h3>
-                <p>this app is exclusively available on the <strong
-                        style="color:#31a79a">dApp Store</strong> for <strong
-                        style="color:#fff">Solana Mobile</strong> devices (Saga
-                    / Chapter 2).<br><br>it cannot be downloaded from a regular
-                    browser or app store.</p>
-                <button class="modal-close" onclick="closeDappModal()">got
-                    it</button>
-            </div>
-        </div>
+        <script src="/javascripts/sound.js"></script>
+        <script src="/javascripts/stipple.js"></script>
+        <script src="/javascripts/orbit.js"></script>
+        <script src="/javascripts/site.js"></script>
     </body>
 </html>

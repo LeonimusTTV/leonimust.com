@@ -1,41 +1,22 @@
-<h1 name="top" id="page_title" class="header animated"><a>games</a></h1>
-<div class="container-flex">
-  <div class="project animated fadeIn">
-    <img class="img" src="/images/supercold.webp" alt="Supercold">
-    <a class="textiboi" href="https://supercold.leonimust.com"
-      target="_blank" rel="noopener noreferrer">supercold</a>
-    <p class="textiboi">superhot but cold and in browser</p>
-    <p
-      class="textiboi status <%= results[0]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
-      <% if(results[0]["statusText"] === "Down") {%>supercold is down<%}
-      else {%>supercold is up<%} %>
-    </p>
-  </div>
-  <div class="project animated fadeIn">
-    <img class="img" src="/images/doom.webp" alt="Doom" loading="lazy">
-    <a class="textiboi" href="https://doom.leonimust.com"
-      target="_blank" rel="noopener noreferrer">doom</a>
-    <p class="textiboi">doom but in browser duh</p>
-    <p
-      class="textiboi status <%= results[1]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
-      <% if(results[1]["statusText"] === "Down") {%>doom is down<%} else
-      {%>doom is up<%} %>
-    </p>
-  </div>
-  <div class="project animated fadeIn">
-    <img class="img" src="/images/earthwalker.webp" alt="Earthwalker" loading="lazy">
-    <a class="textiboi"
-      href="https://earthwalker.leonimust.com" target="_blank"
-      rel="noopener noreferrer">earthwalker</a>
-    <p class="textiboi">geoguessr without budget but free</p>
-    <p
-      class="textiboi status <%= results[2]['statusText'] === 'Down' ? 'status-down' : 'status-up' %>">
-      <% if(results[2]["statusText"] === "Down") {%>earthwalker is down<%}
-      else {%>earthwalker is up<%} %>
-    </p>
-  </div>
-</div>
-<div class="container-flex">
-  <a href="./" onclick="loadPage('./', event)"
-    class="textiboi nav-item nav-back">go back</a>
-</div>
+<%
+const games = [
+  { name: 'supercold', desc: 'superhot but cold and in browser', img: 'supercold.webp', url: 'https://supercold.leonimust.com' },
+  { name: 'doom', desc: 'doom but in browser duh', img: 'doom.webp', url: 'https://doom.leonimust.com' },
+  { name: 'earthwalker', desc: 'geoguessr without budget but free', img: 'earthwalker.webp', url: 'https://earthwalker.leonimust.com' },
+];
+%>
+<section class="page">
+  <div class="page-head"><h1 class="scr">games</h1><span class="count">[<%= String(games.length).padStart(2, '0') %>]</span></div>
+  <ul class="rows">
+    <% games.forEach((p, i) => { const down = !results[i] || results[i].statusText === 'Down'; %>
+    <li class="row" data-img="/images/<%= p.img %>">
+      <a href="<%= p.url %>" target="_blank" rel="noopener noreferrer">
+        <span class="n"><%= String(i + 1).padStart(2, '0') %></span><span class="name"><%= p.name %></span><span class="arrow" aria-hidden="true">↗</span>
+        <span class="desc"><%= p.desc %></span>
+        <span class="tagline"><span class="chip <%= down ? 'down' : 'up' %>"><%= p.name %> is <%= down ? 'down' : 'up' %></span></span>
+      </a>
+    </li>
+    <% }) %>
+  </ul>
+  <a class="back" href="/">← back</a>
+</section>

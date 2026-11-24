@@ -4,3 +4,4 @@ node_modules
 dist
 bun.lock
 .impeccable
+prototypes

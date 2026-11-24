@@ -1,125 +1,13 @@
-<script>
-  function handleAnimations() {
-    let animations = [
-      ["bounce", "bounce"],
-      ["flash", "flash"],
-      ["pulse", "pulse"],
-      ["shake", "shake"],
-      ["headShake", "headShake"],
-      ["swing", "swing"],
-      ["tada", "tada"],
-      ["wobble", "wobble"],
-      ["jello", "jello"],
-      ["heartBeat", "heartBeat"],
-      ["bounceIn", "bounceIn"],
-      ["bounceInDown", "bounceInUp"],
-      ["bounceInLeft", "bounceInRight"],
-      ["fadeIn", "fadeIn"],
-      ["fadeInDown", "fadeInUp"],
-      ["fadeInLeft", "fadeInRight"],
-      ["flip", "flip"],
-      ["flipInX", "flipInX"],
-      ["flipInY", "flipInY"],
-      ["rotateIn", "rotateIn"],
-      ["rotateInDownLeft", "rotateInDownRight"],
-      ["slideInDown", "slideInUp"],
-      ["slideInLeft", "slideInRight"],
-      ["zoomIn", "zoomIn"],
-      ["zoomInDown", "zoomInUp"],
-      ["zoomInLeft", "zoomInRight"],
-      ["jackInTheBox", "jackInTheBox"],
-    ];
-
-    var num = getRandomInt(animations.length);
-
-    animateCSS('[name="top"]', animations[num][0], animationOver);
-    animateCSS('[name="bottom"]', animations[num][1], animationOver);
-  }
-
-  function addStuff() {
-    at("main").innerHTML =
-      `<h1 name="top" id="status_text" class="header animated"><a>leonimust.com</a></h1>
-       <p name="bottom" id="text2" class="textiboi animated">i build web stuff, games and mobile apps. not always good at all three.</p> <!-- only the chads knows i like them, and you're one if you read this -->`;
-
-    handleAnimations();
-  }
-
-  function animateCSS(element, animationName, callback) {
-    const node = document.querySelector(element);
-    if (!node) return;
-    
-    node.classList.add('animated', animationName);
-    node.classList.add('delay-2s');
-
-    function handleAnimationEnd() {
-      node.classList.remove('animated', animationName);
-      node.removeEventListener('animationend', handleAnimationEnd);
-
-      if (typeof callback === 'function') callback();
-    }
-
-    node.addEventListener('animationend', handleAnimationEnd);
-  }
-
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
-  function loadMain() {
-    setTimeout(() => {
-      if (!window.music.paused) {
-        addStuff();
-        return;
-      }
-      at("status_text").innerHTML = "click to enter";
-      at("status_text").classList.add("begin");
-
-    }, 100);
-  }
-  
-  var at = document.getElementById.bind(document);
-  window.addEventListener("DOMContentLoaded", () => {
-    at("status_text").innerHTML = "loading";
-  });
-
-  window.addEventListener("load", () => {
-    loadMain();
-  });
-
-  var temp = 0;
-
-  function animationOver() {
-    temp++;
-
-    if (temp % 2)
-      return;
-
-    setTimeout(function() {
-      var doc = document.getElementById("main");
-      
-      // Create navigation links with staggered animations
-      doc.innerHTML +=
-        `<div class="textiboi">
-            <a id="typElement"></a>
-         </div>
-         <div class="nav-container">
-            <a class="textiboi nav-item" href="https://github.com/LeonimusTTV" target="_blank" rel="noopener noreferrer">github</a>
-            <a class="textiboi nav-item" href="/projects" onclick="loadPage('/projects', event)">projects</a>
-            <a class="textiboi nav-item" href="/games" onclick="loadPage('/games', event)">games</a>
-            <a class="textiboi nav-item" href="/mobile" onclick="loadPage('/mobile', event)">apps</a>
-            <a class="textiboi nav-item" href="mailto:leo@leonimust.com">contact</a>
-         </div>`;
-
-      // Add navigation item animations
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.add('animated', 'fadeIn');
-      });
-
-      startWriting();
-
-    }, 550);
-  }
-
-
-
-</script>
+<section class="home">
+  <h1 class="title">leonimust.com</h1>
+  <p class="tag">i build web stuff, games and mobile apps. not always good at all three.</p>
+  <!-- only the chads knows i like them, and you're one if you read this -->
+  <p class="quote" aria-live="polite"></p>
+  <ul class="menu">
+    <li><a href="/projects"><small>01</small>projects</a></li>
+    <li><a href="/games"><small>02</small>games</a></li>
+    <li><a href="/mobile"><small>03</small>apps</a></li>
+    <li><a href="https://github.com/LeonimusTTV" target="_blank" rel="noopener noreferrer"><small>04</small>github ↗</a></li>
+    <li><a href="mailto:leo@leonimust.com"><small>05</small>contact</a></li>
+  </ul>
+</section>

@@ -7,15 +7,15 @@ const router = express.Router();
 const subdomains = ["https://supercold.leonimust.com", "https://doom.leonimust.com", "https://earthwalker.leonimust.com"];
 
 router.get('/', function (req, res, next) {
-  res.render('index');
+  res.render('index', { view: 'home' });
 });
 
 router.get('/projects', function (req, res, next) {
-  res.render('projects', { bodyClass: 'projects-page' });
+  res.render('projects', { view: 'projects', title: 'projects' });
 });
 
 router.get('/mobile', function (req, res, next) {
-  res.render('mobile', { bodyClass: 'projects-page' });
+  res.render('mobile', { view: 'apps', title: 'apps' });
 });
 
 const checkSubdomain = async (url) => {
@@ -33,10 +33,10 @@ const checkSubdomain = async (url) => {
 
 router.get('/games', async function (req, res, next) {
   const results = await Promise.all(subdomains.map(checkSubdomain));
-  res.render('games', { results, bodyClass: 'games-page' });
+  res.render('games', { results, view: 'games', title: 'games' });
 });
 
-const legalRender = (view) => (req, res) => res.render(view, { bodyClass: 'legal-page' });
+const legalRender = (template) => (req, res) => res.render(template, { view: 'legal', title: 'legal' });
 
 router.get('/legal/subscriptions-management/copyright', legalRender('legal/subscriptions-management/copyright'));
 router.get('/legal/subscriptions-management/licensing', legalRender('legal/subscriptions-management/licensing'));
