@@ -1,23 +1,40 @@
 <%
 const projects = [
-  { name: 'spoticraft', desc: 'spotify in minecraft', img: 'spoticraft.webp', url: 'https://modrinth.com/mod/spoticraft-2' },
-  { name: 'leo ai', desc: 'chat ui wired to n8n webhooks', img: 'chatgpt.webp', url: 'https://ai.leonimust.com/' },
-  { name: 'zero two', desc: 'zero two fan site with a nice ui', img: 'zerotwo.webp', url: 'https://zerotwo.leonimust.com/' },
-  { name: 'valentine', desc: 'ask someone for valentine', img: 'valentine.webp', url: 'https://valentine.leonimust.com/' },
-  { name: 'discord bait', desc: "create a bait image that changes when it's on full screen", img: 'discord-bait.webp', url: 'https://discordbait.leonimust.com/' },
-  { name: 'teams but (actually) good', desc: 'vencord but for teams', img: 'teams.webp', url: 'https://teamsbutactuallygood.dev/' },
-  { name: 'hullwatch', desc: 'repos, containers, clusters, tunnels and servers, watched from your menu bar.', img: 'hullwatch.webp', url: 'https://hullwatch.dev/' },
-  { name: 'webdex', desc: 'collect websites', img: 'webdex.webp', url: 'https://webdex.leonimust.com/' },
-  { name: 'mi power gadget', desc: 'monitor your mac intel', img: 'mipowergadget.webp', url: 'https://mipowergadget.dev/' },
+{ name: 'spoticraft', desc: 'spotify in minecraft', img: 'spoticraft.webp', url:
+'https://modrinth.com/mod/spoticraft-2' },
+{ name: 'applecraft', desc: 'apple music in minecraft', img: 'applecraft.webp',
+url:
+'https://www.curseforge.com/minecraft/mc-mods/applecraft-apple-music' },
+{ name: 'leo ai', desc: 'chat ui wired to n8n webhooks', img: 'chatgpt.webp',
+url: 'https://ai.leonimust.com/' },
+{ name: 'zero two', desc: 'zero two fan site with a nice ui', img:
+'zerotwo.webp', url: 'https://zerotwo.leonimust.com/' },
+{ name: 'valentine', desc: 'ask someone for valentine', img: 'valentine.webp',
+url: 'https://valentine.leonimust.com/' },
+{ name: 'discord bait', desc:
+"create a bait image that changes when it's on full screen", img:
+'discord-bait.webp', url: 'https://discordbait.leonimust.com/' },
+{ name: 'teams but (actually) good', desc: 'vencord but for teams', img:
+'teams.webp', url: 'https://teamsbutactuallygood.dev/' },
+{ name: 'hullwatch', desc:
+'repos, containers, clusters, tunnels and servers, watched from your menu bar.',
+img: 'hullwatch.webp', url: 'https://hullwatch.dev/' },
+{ name: 'webdex', desc: 'collect websites', img: 'webdex.webp', url:
+'https://webdex.leonimust.com/' },
+{ name: 'mi power gadget', desc: 'monitor your mac intel', img:
+'mipowergadget.webp', url: 'https://mipowergadget.dev/' },
 ];
 %>
 <section class="page">
-  <div class="page-head"><h1 class="scr">projects</h1><span class="count">[<%= String(projects.length).padStart(2, '0') %>]</span></div>
+  <div class="page-head"><h1 class="scr">projects</h1><span class="count">[<%=
+      String(projects.length).padStart(2, '0') %>]</span></div>
   <ul class="rows">
     <% projects.forEach((p, i) => { %>
     <li class="row" data-img="/images/<%= p.img %>">
       <a href="<%= p.url %>" target="_blank" rel="noopener noreferrer">
-        <span class="n"><%= String(i + 1).padStart(2, '0') %></span><span class="name"><%= p.name %></span><span class="arrow" aria-hidden="true">↗</span>
+        <span class="n"><%= String(i + 1).padStart(2, '0') %></span><span
+          class="name"><%= p.name %></span><span class="arrow"
+          aria-hidden="true">↗</span>
         <span class="desc"><%= p.desc %></span>
       </a>
     </li>
